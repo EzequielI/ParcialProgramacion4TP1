@@ -1,0 +1,17 @@
+<app-navbar-login></app-navbar-login>
+
+<h1>Bienvenido a Hoshi's Arcade!!</h1>
+<form (ngSubmit)="iniciarSesion()" #loginForm="ngForm">
+    <p>Inicie sesion</p>
+    <label class="form-label">Correo</label>
+    <input type="email" placeholder="Ingrese su correo" required email
+    [(ngModel)]="correo">
+
+    <label class="form-label">Contraseña</label>
+    <input type="text" placeholder="Ingrese su contraseña" required
+    [(ngModel)]="contrasenia">
+
+    <button (click)="iniciarSesion()">Iniciar Sesion</button>
+    <label for="">Aun no tenes cuenta?</label>
+    <button (click)="registrarse()">Registrarse</button>
+</form>
