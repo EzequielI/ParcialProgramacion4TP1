@@ -1,0 +1,12 @@
+.navbar{
+    background-color: #070F34;
+}
+.titulo{
+    font-family: 'Jersey 25', sans-serif;
+    color: #9201CB;
+    font-size: 2rem;
+    
+}
+.titulo:hover{
+    cursor:pointer
+}

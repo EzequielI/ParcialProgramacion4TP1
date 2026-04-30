@@ -1,17 +1,32 @@
 <app-navbar-login></app-navbar-login>
 
-<h1>Bienvenido a Hoshi's Arcade!!</h1>
-<form (ngSubmit)="iniciarSesion()" #loginForm="ngForm">
-    <p>Inicie sesion</p>
-    <label class="form-label">Correo</label>
-    <input type="email" placeholder="Ingrese su correo" required email
-    [(ngModel)]="correo">
+<h1 class="titulo mt-5">Bienvenido a Hoshi's Arcade!!</h1>
+<div class="row justify-content-center">
 
-    <label class="form-label">Contraseña</label>
-    <input type="text" placeholder="Ingrese su contraseña" required
-    [(ngModel)]="contrasenia">
+    <div class="contenedor col-12 col-lg-4 p-4 rounded-5" >
 
-    <button (click)="iniciarSesion()">Iniciar Sesion</button>
-    <label for="">Aun no tenes cuenta?</label>
-    <button (click)="registrarse()">Registrarse</button>
-</form>
+        <form class="text-center" (ngSubmit)="iniciarSesion()" #loginForm="ngForm">
+
+            <p class="titulo-sesion">Inicie sesión</p>
+            <label class="labels-sesion form-label">Correo</label>
+            <input class="form-control mb-3"
+                    type="email"
+                    placeholder="Ingrese su correo"
+                    required email
+                    [(ngModel)]="correo"
+                    name="correo">
+
+            <label class="labels-sesion form-label">Contraseña</label>
+            <input class="form-control mb-3"
+                    type="text"
+                    placeholder="Ingrese su contraseña"
+                    required
+                    [(ngModel)]="contrasenia"
+                    name="contrasenia">
+
+            <button class="btn btn-primary w-100 mb-3" (click)="iniciarSesion()">Iniciar Sesión</button>
+            <label class="labels-sesion">Aún no tenes cuenta?</label>
+            <button class="btn btn-outline-primary w-100 mt-2" (click)="registrarse()">Registrarse</button>
+        </form>
+    </div>
+</div>

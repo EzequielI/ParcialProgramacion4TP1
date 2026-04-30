@@ -1,5 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Jersey+25&display=swap');
+:root{
+    --fuente: 'Jersey 25', sans-serif;
+}
 body{
-    background-color: gray;
+    background: linear-gradient(1000deg, #0f0026, #1f0033, #000814);
     text-align: center;
 }

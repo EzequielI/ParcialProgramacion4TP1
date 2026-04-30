@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Navbar } from '../../estructura/navbar/navbar';
 
 @Component({
@@ -7,4 +7,6 @@ import { Navbar } from '../../estructura/navbar/navbar';
   templateUrl: './quien-soy.html',
   styleUrl: './quien-soy.css',
 })
-export class QuienSoy {}
+export class QuienSoy {
+
+}
