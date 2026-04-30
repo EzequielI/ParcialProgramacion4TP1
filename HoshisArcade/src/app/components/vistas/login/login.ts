@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavbarLogin } from '../../estructura/navbar-login/navbar-login';
-import { Route, Router } from "@angular/router";
+import { Router } from "@angular/router";
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -16,8 +16,10 @@ export class Login {
 
   constructor(private router: Router){}
 
-  iniciarSesion(): void{
+  mostrarInformacion(): void{
     console.log(this.contrasenia, this.correo);
+  }
+  iniciarSesion(): void{
     this.router.navigate(['/bienvenida']);
   }
   registrarse(): void{
