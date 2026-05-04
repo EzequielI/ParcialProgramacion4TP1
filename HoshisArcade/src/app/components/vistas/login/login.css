@@ -1,9 +1,9 @@
 .titulo{
     font-family: var(--fuente);
-    color: #9201CB;
+    color: var(--violeta_oscuro);
 }
 .contenedor{
-    background-color: #7cdadd;
+    background-color: var(--celeste_clarito);
 }
 .titulo-sesion{
     font-family: var(--fuente);

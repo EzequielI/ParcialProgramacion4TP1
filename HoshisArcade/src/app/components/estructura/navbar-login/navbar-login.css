@@ -2,8 +2,8 @@
     background-color: #070F34;
 }
 .titulo{
-    font-family: 'Jersey 25', sans-serif;
-    color: #9201CB;
+    font-family: var(--fuente);
+    color: var(--violeta_oscuro);
     font-size: 2rem;
     
 }

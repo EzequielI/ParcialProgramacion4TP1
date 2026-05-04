@@ -2,6 +2,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Jersey+25&display=swap');
 :root{
     --fuente: 'Jersey 25', sans-serif;
+    --violeta_oscuro: #9201CB;
+    --celeste_clarito: #7cdadd;
 }
 body{
     background: linear-gradient(1000deg, #0f0026, #1f0033, #000814);
