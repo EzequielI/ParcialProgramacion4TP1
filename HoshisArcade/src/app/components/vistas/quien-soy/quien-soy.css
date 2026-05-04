@@ -1,0 +1,9 @@
+.contenedor{
+    background-color: var(--celeste_clarito);
+}
+
+p{
+    font-family: var(--fuente);
+    color:black;
+    font-size: 1.5rem;
+}

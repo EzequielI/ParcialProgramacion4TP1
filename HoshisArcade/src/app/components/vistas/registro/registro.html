@@ -1,1 +1,35 @@
 <app-navbar-login></app-navbar-login>
+<div class="row justify-content-center mt-5">
+    <div class="contenedor col-lg-4 p-4 rounded-5">
+
+        <form class="text-center" (ngSubmit)="registro()" #loginForm="ngForm">
+
+            <p class="titulo-registro">Registrese</p>
+            <label class="labels-registro form-label">Nombre</label>
+            <input class="form-control mb-3"
+                    type="text"
+                    placeholder="Ingrese su nombre de usuario"
+                    required
+                    [(ngModel)]="nombre"
+                    name="nombre">
+            <label class="labels-registro form-label">Correo</label>
+                <input class="form-control mb-3"
+                    type="email"
+                    placeholder="Ingrese su correo"
+                    required email
+                    [(ngModel)]="correo"
+                    name="correo">
+            <label class="labels-registro form-label">Contraseña</label>
+                <input class="form-control mb-3"
+                    type="text"
+                    placeholder="Ingrese su contraseña"
+                    required
+                    [(ngModel)]="contrasenia"
+                    name="contrasenia">
+
+            <button class="btn btn-primary w-100 mb-3" (click)="registrarCuenta()">Registrarse</button>
+        </form>
+
+    </div>
+
+</div>

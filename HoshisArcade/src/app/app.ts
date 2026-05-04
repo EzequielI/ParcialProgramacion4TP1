@@ -6,7 +6,7 @@ import { Navbar } from './components/estructura/navbar/navbar';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NavbarLogin, Navbar],
+  imports: [RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
