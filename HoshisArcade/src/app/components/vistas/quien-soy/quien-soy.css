@@ -7,3 +7,8 @@ p{
     color:black;
     font-size: 1.5rem;
 }
+
+.titulo_juego{
+    font-family: var(--fuente);
+    color:black;
+}

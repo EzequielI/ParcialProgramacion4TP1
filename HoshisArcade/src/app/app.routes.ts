@@ -1,8 +1,4 @@
 import { Routes } from '@angular/router';
-import { Login } from './components/vistas/login/login';
-import { Registro } from './components/vistas/registro/registro';
-import { QuienSoy } from './components/vistas/quien-soy/quien-soy';
-import { Bienvenida } from './components/vistas/bienvenida/bienvenida';
 
 export const routes: Routes = [
 
@@ -13,19 +9,19 @@ export const routes: Routes = [
     },
     {
         path:"login",
-        component: Login
+        loadComponent: () => import('./components/vistas/login/login').then(m => m.Login)
     },
     {
         path:"registro",
-        component:Registro
+        loadComponent: () => import('./components/vistas/registro/registro').then(m => m.Registro)
     },
     {
         path:"quien-soy",
-        component:QuienSoy
+        loadComponent: () => import('./components/vistas/quien-soy/quien-soy').then(m => m.QuienSoy)
     },
     {
         path:"bienvenida",
-        component:Bienvenida
+        loadComponent: () => import('./components/vistas/bienvenida/bienvenida').then(m => m.Bienvenida)
     },
     {
         path:"**",

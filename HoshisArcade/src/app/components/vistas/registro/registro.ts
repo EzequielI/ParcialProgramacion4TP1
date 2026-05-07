@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { NavbarLogin } from "../../estructura/navbar-login/navbar-login";
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registro',
-  imports: [NavbarLogin,FormsModule],
+  imports: [FormsModule],
   templateUrl: './registro.html',
   styleUrl: './registro.css',
 })

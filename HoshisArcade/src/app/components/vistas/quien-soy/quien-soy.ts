@@ -1,11 +1,10 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { Navbar } from '../../estructura/navbar/navbar';
 import { HttpClient } from '@angular/common/http';
 import { Alumno } from '../../../modelos/alumno/alumno-module';
 
 @Component({
   selector: 'app-quien-soy',
-  imports: [Navbar],
+  imports: [],
   templateUrl: './quien-soy.html',
   styleUrl: './quien-soy.css',
 })
