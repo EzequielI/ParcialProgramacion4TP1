@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { NavbarLogin } from '../../estructura/navbar-login/navbar-login';
 import { Router } from "@angular/router";
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
-  imports: [NavbarLogin, FormsModule],
+  imports: [FormsModule],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
