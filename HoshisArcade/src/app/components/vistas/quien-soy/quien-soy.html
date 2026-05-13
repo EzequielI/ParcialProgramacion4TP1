@@ -1,20 +1,21 @@
 <div class="container mt-5">
     <div class="row justify-content-center">
-        @if (alumno) {
+        @if (alumno()) {
             <!--col-12 es para celular, col-md 8 para tablet y col-lg para pc -->
             <div class= "col-12 col-md-8 col-lg-6 d-flex justify-content-center">
                 <div class="contenedor p-4 m-2 rounded-5 w-100">
                     <div class="row align-items-center">
 
                         <div class="col-8">
-                            <p>Nombre: {{alumno.login}}</p>
-                            <p>ID: {{alumno.id}}</p>
-                            <p>Tipo:{{alumno.type}}</p>
-                            <p>Creado el: {{alumno.created_at}}</p>
+                            <!-- Se usa el ? para decir que es opcionarl ponerlo asi renderiza y cuando le llegue la info se cargue -->
+                            <p>Nombre: {{alumno()?.login}}</p>
+                            <p>ID: {{alumno()?.id}}</p>
+                            <p>Tipo:{{alumno()?.type}}</p>
+                            <p>Creado el: {{alumno()?.created_at}}</p>
                         </div>
                         
                         <div class="col-4 d-flex justify-content-end">
-                            <img class="img-fluid" [src]="alumno.avatar_url" alt="">
+                            <img class="img-fluid" [src]="alumno()?.avatar_url" alt="">
                         </div>
                     </div>
                 </div>
@@ -28,7 +29,3 @@
                 en ese lugar y verde para indicar que va ahi. Tenes 5 intentos para adivinar que palabra que es, cuanto menos intentos mas puntos ganaras.
             </p>
         </div>
-    </div>
-    <button class="btn btn-primary" (click)="mostrarAlumno()">Mostrar</button>
-
-</div>

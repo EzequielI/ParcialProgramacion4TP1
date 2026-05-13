@@ -33,5 +33,3 @@ export const lista_juegos: juegos[] = [
     foto:"asdfasd"
   }
 ]
-
-export class JuegosModule {}
