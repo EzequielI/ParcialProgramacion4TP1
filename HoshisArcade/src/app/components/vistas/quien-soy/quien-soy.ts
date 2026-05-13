@@ -1,6 +1,6 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Alumno } from '../../../modelos/alumno/alumno-module';
+import { Component, inject, OnInit, signal } from '@angular/core';
+import { Alumno } from '../../../servicios/alumno';
+import { Alumnos } from '../../../modelos/alumnos/alumno-module';
 
 @Component({
   selector: 'app-quien-soy',
@@ -9,35 +9,31 @@ import { Alumno } from '../../../modelos/alumno/alumno-module';
   styleUrl: './quien-soy.css',
 })
 export class QuienSoy implements OnInit {
-  private http = inject(HttpClient);
-  private alumnoUrl = 'https://api.github.com/users/EzequielI'
 
-  // Este metodo nos permitira traer mediante peticion http
-  // los datos de la api y formatearlos con como esta puesto en
-  // la interfaz creada Alumno
-  cargarAlumno(){
-    return this.http.get<Alumno>(this.alumnoUrl)
+  // Creamos una variable de tipo signal que sea de tipo Alumno para contener los datos traidos de la Api,
+  // que tambien puede ser null asi se inicializa y cuando se llamen los datos en el orden de ejecucion no tire error
+  alumno = signal<Alumnos | null>(null)
+
+  // Importamos http desde Alumno el servicio con una injeccion en vez de un constructor al ser un metodo mas moderno
+  http = inject(Alumno)
+
+  // Esta funcion se encargara de traer la URL, suscribirse para que actualice cada vez que traiga los datos y importarselos a la
+  // variable alumnos
+  obtenerAlumno(){
+    this.http.obtenerAlumnoUrl('https://api.github.com/users/EzequielI').subscribe({
+      next:(data: any) =>{
+      this.alumno.set(data);
+      },
+      error: (error) => {
+        console.error("Error al traer al Alumno", error)
+      }
+    })
   }
 
-  
-  // Aca ejecutaremos el metodo anterior y nos suscribiremos para que empiece
-  // a funcionar y en la variable alumno nos vuelque los datos que le pedimos
-  // sin subscribe no funcionaria ya que es un observable el dato al traerlo con
-  // una peticion HTTP
-  mostrarAlumno():void{
-    this.cargarAlumno().subscribe(data => {
-      this.alumno = data;
-    });
-  }
-  // El signo de pregunta la hace opcional por ende no necesita ser inicializada
-  // luego recibira el dato cuando se traigan los datos
-  alumno?: Alumno;
-
+    // Se encargara de ejecutar la funcion cuando se inicie el servidor
   ngOnInit(){
-    this.mostrarAlumno();
+    this.obtenerAlumno();
+    
   }
-
-  // Tengo que buscar bien y entender como aplicar los datos que traiga de 
-  // una url con HttpClient y como hago en el caso de un alumno o mas
 
 }
