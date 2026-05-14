@@ -9,11 +9,7 @@ import { Router } from '@angular/router';
   styleUrl: './registro.css',
 })
 export class Registro {
-
-  nombre = "";
-  correo = "";
-  contrasenia = "";
-
+  
   constructor(private router: Router){}
 
   registrarCuenta():void{

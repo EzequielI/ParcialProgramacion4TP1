@@ -3,24 +3,20 @@
 
     <div class="contenedor col-lg-4 p-4 rounded-5" >
 
-        <form class="text-center" (ngSubmit)="mostrarInformacion()" #loginForm="ngForm">
+        <form class="text-center">
 
             <p class="titulo-sesion">Inicie sesión</p>
             <label class="labels-sesion form-label">Correo</label>
             <input class="form-control mb-3"
                     type="email"
                     placeholder="Ingrese su correo"
-                    required email
-                    [(ngModel)]="correo"
-                    name="correo">
+                    required email>
 
             <label class="labels-sesion form-label">Contraseña</label>
             <input class="form-control mb-3"
                     type="text"
                     placeholder="Ingrese su contraseña"
-                    required
-                    [(ngModel)]="contrasenia"
-                    name="contrasenia">
+                    required>
 
             <button class="btn btn-primary w-100 mb-3" (click)="iniciarSesion()">Iniciar Sesión</button>
             <label class="labels-sesion">Aún no tenes cuenta?</label>

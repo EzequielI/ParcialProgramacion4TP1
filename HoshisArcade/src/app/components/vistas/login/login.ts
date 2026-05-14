@@ -10,14 +10,8 @@ import { FormsModule } from '@angular/forms';
 })
 export class Login {
 
-  correo = "";
-  contrasenia = "";
-
   constructor(private router: Router){}
 
-  mostrarInformacion(): void{
-    console.log(this.contrasenia, this.correo);
-  }
   iniciarSesion(): void{
     this.router.navigate(['/bienvenida']);
   }
