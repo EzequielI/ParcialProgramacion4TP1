@@ -4,7 +4,6 @@ export interface juegos{
   nombre_juego: string,
   descripcion: string,
   foto: string
-
 }
 
 export const lista_juegos: juegos[] = [
@@ -28,8 +27,8 @@ export const lista_juegos: juegos[] = [
   },
   {
     id:4,
-    nombre_juego: "Juego propio",
-    descripcion: "Este juego esta aun en proceso",
-    foto:"asdfasd"
+    nombre_juego: "Wordle",
+    descripcion: "En este juego deberas adivinar la palabra mediante la menor cantidad de intentos posibles",
+    foto:"../../../Wordle_icono.JPG"
   }
 ]

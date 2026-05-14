@@ -30,6 +30,7 @@ export class QuienSoy implements OnInit {
     })
   }
 
+
     // Se encargara de ejecutar la funcion cuando se inicie el servidor
   ngOnInit(){
     this.obtenerAlumno();
