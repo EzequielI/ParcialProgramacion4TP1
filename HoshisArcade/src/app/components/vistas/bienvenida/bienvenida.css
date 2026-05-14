@@ -1,0 +1,29 @@
+
+.titulo_pagina{
+    color:var(--violeta_oscuro);
+    font-family: var(--fuente);
+    font-size: 4rem;
+}
+
+.subtitulo_pagina{
+    color:var(--violeta_oscuro);
+    font-family: var(--fuente);
+    font-size: 2.5rem;
+}
+
+
+.contenedor{
+    background-color: var(--celeste_clarito) ;
+}
+
+.titulo{
+    color:black;
+    font-family: var(--fuente);
+    font-size: 2rem;
+}
+
+.descripcion{
+    color: black;
+    font-family: var(--fuente);
+    font-size: 1.2rem;
+}
