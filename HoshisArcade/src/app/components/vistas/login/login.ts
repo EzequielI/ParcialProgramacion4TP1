@@ -16,8 +16,16 @@ export class Login implements OnInit{
   constructor(private router: Router, private fb : FormBuilder){}
 
   iniciarSesion(): void{
-    this.router.navigate(['/bienvenida']);
-  }
+      if (this.formularioLogin.invalid) {
+        this.formularioLogin.markAllAsTouched();
+        return;
+
+        }else if (true) {
+          this.router.navigate(['/bienvenida']);
+        }
+      
+    }
+
   registrarse(): void{
     this.router.navigate(['/registro'])
   }
@@ -27,5 +35,12 @@ export class Login implements OnInit{
       correo: ["", Validators.email],
       clave: ["", Validators.minLength(4)]
     })
+  }
+
+  get correo(){
+    return this.formularioLogin.get('correo')
+  }
+  get clave(){
+    return this.formularioLogin.get('clave')
   }
 }

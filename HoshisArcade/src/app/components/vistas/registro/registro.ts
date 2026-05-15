@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Auth } from '../../../servicios/auth';
 
 @Component({
   selector: 'app-registro',
@@ -12,7 +13,7 @@ export class Registro implements OnInit{
 
   formularioRegistro! : FormGroup
 
-  constructor(private router: Router, private fb : FormBuilder){}
+  constructor(private router: Router, private fb : FormBuilder, private supabase : Auth){}
 
   registrarCuenta():void{
     this.router.navigate(['/login'])
@@ -22,9 +23,10 @@ export class Registro implements OnInit{
   ngOnInit(): void {
     this.formularioRegistro = this.fb.group({
       correo:["", Validators.email],
-      nombre:["", Validators.pattern('^[a-zA-Z]+$')],
-      apellido:["", Validators.pattern('^[a-zA-Z]+$')],
-      edad:["", [Validators.min(10),Validators.max(99)]],
+      //Arreglar los patterns que deja poner solo espacio
+      nombre:["", Validators.pattern('^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$')],
+      apellido:["", Validators.pattern('^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$')],
+      edad:["", [Validators.pattern('^[0-9]+$'),Validators.min(10),Validators.max(99)]],
       clave:["", Validators.minLength(4)]
     })
     
@@ -47,15 +49,16 @@ export class Registro implements OnInit{
   }
   
   enviarForm():void{
-    console.log(this.formularioRegistro.value)
     if (this.formularioRegistro.invalid) {
       console.log("Formulario invalido");
+      this.formularioRegistro.markAllAsTouched();
       return;
       
     }else{
-      this.router.navigate(['/login'])
+      console.log(this.formularioRegistro.value)
+      this.supabase.registrar(this.correo?.value , this.clave?.value);
+      this.supabase.guardarDatosUsuarios(this.correo?.value, this.nombre?.value, this.apellido?.value , parseInt(this.edad?.value))
     }
   }
-
   
 }

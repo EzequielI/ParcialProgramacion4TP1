@@ -3,7 +3,7 @@
 
     <div class="contenedor col-lg-4 p-4 rounded-5" >
 
-        <form class="text-center" [formGroup]="formularioLogin">
+        <form class="text-center" [formGroup]="formularioLogin" (ngSubmit)="iniciarSesion()">
 
             <p class="titulo-sesion">Inicie sesión</p>
             <label class="labels-sesion form-label">Correo</label>
@@ -12,6 +12,14 @@
                     placeholder="Ingrese su correo"
                     required email
                     formControlName="correo">
+                    @if (correo?.hasError('email')) {
+                        <small class="text-danger">Formato invalido</small>
+                        <br>
+                    }
+                    @if (correo?.hasError('required') && correo?.touched) {
+                        <small class="text-danger">Campo obligatorio</small>
+                        <br>
+                    }
 
             <label class="labels-sesion form-label">Contraseña</label>
             <input class="form-control mb-3"
@@ -20,10 +28,18 @@
                     required
                     name="contrasenia"
                     formControlName="clave">
+                    @if (clave?.hasError('minlength')) {
+                        <small class="text-danger">La contraseña debe tener minimo 4 caracteres</small>
+                        <br>
+                    }
+                    @if (clave?.hasError('required') && clave?.touched) {
+                        <small class="text-danger">Campo obligatorio</small>
+                        <br>
+                    }
 
             <button class="btn btn-primary w-100 mb-3" type="submit">Iniciar Sesión</button>
             <label class="labels-sesion">Aún no tenes cuenta?</label>
-            <button class="btn btn-outline-primary w-100 mt-2" >Registrarse</button>
+            <button class="btn btn-outline-primary w-100 mt-2" (click)="registrarse()" >Registrarse</button>
         </form>
     </div>
 </div>
