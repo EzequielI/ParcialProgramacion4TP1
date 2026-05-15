@@ -2,7 +2,13 @@
     <p class="titulo mx-4" routerLink="/login">Hoshi's Arcade</p>
     @if (router.url !== '/login' && router.url !== '/registro' ) {
 
-        <p class="iniciar_sesion_link" routerLink="/login">Iniciar sesión</p>
+        @if(inicio_sesion() == false){
+            <button class="iniciar_sesion_link btn" routerLink="/login" (click)="cerrarSesion()">Iniciar sesión</button>
+
+        }@else {
+                <button class="iniciar_sesion_link btn" routerLink="/login" (click)="iniciarSesion()">Cerrar sesión</button>
+                <p>Sesion iniciada</p>
+            }
         <div class="position-absolute top-1 end-0">
             <div>
                 <button class="btn mb-3" routerLink="/bienvenida">Bienvenida</button>
