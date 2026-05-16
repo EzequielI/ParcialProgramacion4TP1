@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Auth } from '../../../servicios/auth';
+import { usuario } from '../../../modelos/usuario/usuario-module';
 
 @Component({
   selector: 'app-login',
@@ -11,9 +13,10 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 export class Login implements OnInit{
 
   formularioLogin!: FormGroup;
-  sesion_iniciada = true;
+  sesion_iniciada = false;
+  usuarios: usuario[] = []
 
-  constructor(private router: Router, private fb : FormBuilder){}
+  constructor(private router: Router, private fb : FormBuilder, private supabase : Auth){}
 
   iniciarSesion(): void{
       if (this.formularioLogin.invalid) {
@@ -21,7 +24,15 @@ export class Login implements OnInit{
         return;
 
         }else if (true) {
-          this.router.navigate(['/bienvenida']);
+          this.supabase.iniciarSesion(this.correo?.value, this.clave?.value).then((respuesta) =>{
+            if (respuesta.error) {
+              console.log("Credenciales incorrectas")
+              
+            }else{
+              this.sesion_iniciada = true;
+              this.router.navigate(['/bienvenida']);
+            }
+          })
         }
       
     }
@@ -30,7 +41,8 @@ export class Login implements OnInit{
     this.router.navigate(['/registro'])
   }
 
-  ngOnInit(): void{
+  async ngOnInit(){
+
     this.formularioLogin = this.fb.group({
       correo: ["", Validators.email],
       clave: ["", Validators.minLength(4)]
@@ -38,9 +50,9 @@ export class Login implements OnInit{
   }
 
   get correo(){
-    return this.formularioLogin.get('correo')
+    return this.formularioLogin.get('correo');
   }
   get clave(){
-    return this.formularioLogin.get('clave')
+    return this.formularioLogin.get('clave');
   }
 }

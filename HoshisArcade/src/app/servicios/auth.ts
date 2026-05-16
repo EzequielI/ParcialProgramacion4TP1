@@ -1,5 +1,4 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { Router } from '@angular/router';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { enviroment } from './enviroment';
 
@@ -15,26 +14,31 @@ export class Auth {
 
   clienteSupabase: SupabaseClient;
 
-  constructor(private router:Router){
+  constructor(){
     this.clienteSupabase = createClient(this.supabaseUrl, this.supabaseKey)
   }
   //Registrar sesion
-  registrar(correo:string, clave:string){
-    return this.clienteSupabase.auth.signUp({
+  async registrar(correo:string, clave:string){
+    return await this.clienteSupabase.auth.signUp({
       email:correo,
       password:clave,
     });
   }
   //Iniciar sesion
-  iniciarSesion(correo:string,clave:string){
-    this.clienteSupabase.auth.signInWithPassword({ 
-      email:correo, 
-      password : clave,
+  async iniciarSesion(correo:string,clave:string){
+    return await this.clienteSupabase.auth.signInWithPassword({ 
+      email: correo, 
+      password: clave,
     })
   }
   //Guardar datos en la base de datos
-  guardarDatosUsuarios(usuarioCorreo: string, usuarioNombre: string, usuarioApellido: string, usuarioEdad:number){
-    this.clienteSupabase.from('usuarios').insert([
+  async guardarDatosUsuarios(
+    usuarioCorreo: string,
+    usuarioNombre: string, 
+    usuarioApellido: string, 
+    usuarioEdad:number
+  ){
+    return await this.clienteSupabase.from('usuarios').insert([
       {
         correo:usuarioCorreo,
         nombre:usuarioNombre,
@@ -42,14 +46,11 @@ export class Auth {
         edad:usuarioEdad
 
       }
-  ]).then(({data, error}) =>{
-    if (error) {
-      console.error('Error:', error.message)
-      
-    }else{
-      this.router.navigate(['/login'])
-    }
-  })
+  ]);
+  }
+
+  async obtenerDatosUsuarios(){
+    return await this.clienteSupabase.from('usuarios').select('*')
   }
 
 }

@@ -14,11 +14,6 @@ export class Registro implements OnInit{
   formularioRegistro! : FormGroup
 
   constructor(private router: Router, private fb : FormBuilder, private supabase : Auth){}
-
-  registrarCuenta():void{
-    this.router.navigate(['/login'])
-  }
-
   
   ngOnInit(): void {
     this.formularioRegistro = this.fb.group({
@@ -31,7 +26,7 @@ export class Registro implements OnInit{
     })
     
   }
-  
+  //Getters para obtener los valores de los campos
   get correo() {
     return this.formularioRegistro.get('correo')
   }
@@ -48,16 +43,35 @@ export class Registro implements OnInit{
     return this.formularioRegistro.get('clave')
   }
   
-  enviarForm():void{
+  async enviarForm(){
     if (this.formularioRegistro.invalid) {
       console.log("Formulario invalido");
       this.formularioRegistro.markAllAsTouched();
       return;
       
     }else{
-      console.log(this.formularioRegistro.value)
-      this.supabase.registrar(this.correo?.value , this.clave?.value);
-      this.supabase.guardarDatosUsuarios(this.correo?.value, this.nombre?.value, this.apellido?.value , parseInt(this.edad?.value))
+      console.log(this.formularioRegistro.value);
+      const{data,error} = await this.supabase.registrar(
+        this.correo?.value,
+        this.clave?.value
+      );
+      console.log("Datos:", data)
+      console.log("Error:", error)
+
+      if(error){
+    console.log(error.message);
+    return;
+  }
+
+    // GUARDAR DATOS
+    await this.supabase.guardarDatosUsuarios(
+      this.correo?.value,
+      this.nombre?.value,
+      this.apellido?.value,
+      parseInt(this.edad?.value)
+    );
+    
+      this.router.navigate(['/login']);
     }
   }
   
