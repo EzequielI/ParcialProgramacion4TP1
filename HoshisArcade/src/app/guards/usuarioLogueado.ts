@@ -1,5 +1,5 @@
 import { inject } from "@angular/core";
-import { CanActivateFn } from "@angular/router";
+import { CanActivateFn, Router } from "@angular/router";
 import { Auth } from "../servicios/auth";
 
 
@@ -10,6 +10,7 @@ export const usuarioLogueado : CanActivateFn = async ( ) =>{
     // no este iniciado sesion
     
     const auth = inject(Auth);
+    const router = inject(Router)
 
     const logueado = await auth.estaLogueado();
 
@@ -18,5 +19,6 @@ export const usuarioLogueado : CanActivateFn = async ( ) =>{
     }
 
     await auth.logout();
+    router.navigate([''])
     return false;
 }
