@@ -14,13 +14,13 @@ import { ChangeDetectorRef } from '@angular/core';
 export class Registro implements OnInit{
 
   formularioRegistro! : FormGroup;
-  datosUsuarios : any;
+  private datosUsuarios : any;
   mensajeRegistro: string = '';
 
-  private router = inject(Router);
-  private fb = inject(FormBuilder);
-  private supabase = inject(Auth);
-  private cdr = inject(ChangeDetectorRef);
+  private readonly router = inject(Router);
+  private readonly fb = inject(FormBuilder);
+  private readonly supabase = inject(Auth);
+  private readonly cdr = inject(ChangeDetectorRef);
   
   ngOnInit(): void {
     this.formularioRegistro = this.fb.group({
@@ -57,7 +57,7 @@ export class Registro implements OnInit{
       return;
       
     };
-    const respuesta = (await this.supabase.obtenerCorreoDeUsuarios());
+    const respuesta = (await this.supabase.obtenerUsuarioDatos());
     this.datosUsuarios = respuesta.data;
 
     const correoExiste = this.datosUsuarios.some(

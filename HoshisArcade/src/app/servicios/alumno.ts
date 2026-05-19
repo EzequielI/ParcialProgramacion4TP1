@@ -7,7 +7,7 @@ import { inject, Injectable } from '@angular/core';
 export class Alumno {
 
   // Iniciamos un constructor para usar los servicios HttpClient mediante la variable http
-  http = inject(HttpClient)
+  private readonly http = inject(HttpClient)
 
   // Esta funcion tendra un parametro que sera la url de tipo string y devolvera
   // la obtencion de la URL

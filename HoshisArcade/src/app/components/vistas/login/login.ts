@@ -2,7 +2,6 @@ import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Auth } from '../../../servicios/auth';
-import { usuario } from '../../../modelos/usuario/usuario-module';
 import * as bootstrap from "bootstrap"
 
 @Component({
@@ -14,14 +13,12 @@ import * as bootstrap from "bootstrap"
 export class Login implements OnInit{
 
   formularioLogin!: FormGroup;
-  sesion_iniciada = false;
-  usuarios: usuario[] = []
   mensajeLogin: string = ""
 
-  private router = inject(Router);
-  private fb = inject(FormBuilder);
-  private supabase = inject(Auth);
-  private cdr = inject(ChangeDetectorRef);
+  private readonly router = inject(Router);
+  private readonly fb = inject(FormBuilder);
+  private readonly supabase = inject(Auth);
+  private readonly cdr = inject(ChangeDetectorRef);
 
   async iniciarSesion(){
       if (this.formularioLogin.invalid) {
@@ -35,8 +32,6 @@ export class Login implements OnInit{
             this.modalError('Credenciales incorrectas')
             
           }else{
-              localStorage.setItem("sesionActual",this.correo?.value)
-              this.sesion_iniciada = true;
               this.supabase.mostrarUsuario();
               this.router.navigate(['/bienvenida']);
             }

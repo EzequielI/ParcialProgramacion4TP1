@@ -30,8 +30,9 @@
         <form class="text-center" [formGroup]="formularioRegistro" (ngSubmit)="enviarForm()">
 
             <p class="titulo-registro">Registrese</p>
-            <label class="labels-registro form-label">Nombre</label>
+            <label class="labels-registro form-label" for="nombreInput">Nombre</label>
             <input class="form-control mb-3"
+                    id="nombreInput"
                     type="text"
                     placeholder="Ingrese su nombre"
                     required
@@ -45,8 +46,9 @@
                         <br>
                     }
 
-            <label class="labels-registro form-label">Apellido</label>
+            <label class="labels-registro form-label" for="apellidoInput">Apellido</label>
             <input class="form-control mb-3"
+                    id="apellidoInput"
                     type="text"
                     placeholder="Ingrese su apellido"
                     required
@@ -60,8 +62,9 @@
                         <br>
                     }
 
-            <label class="labels-registro form-label">Edad</label>
+            <label class="labels-registro form-label" for="edadInput">Edad</label>
             <input class="form-control mb-3"
+                    id="edadInput"
                     type="text"
                     placeholder="Ingrese su edad"
                     required
@@ -82,8 +85,9 @@
                         <br>
                     }
 
-            <label class="labels-registro form-label">Correo</label>
+            <label class="labels-registro form-label" for="correoInput">Correo</label>
                 <input class="form-control mb-3"
+                    id="correoInput"
                     type="email"
                     placeholder="Ingrese su correo"
                     required email
@@ -97,8 +101,9 @@
                         <br>
                     }
 
-            <label class="labels-registro form-label">Contraseña</label>
+            <label class="labels-registro form-label" for="contraseñaInput">Contraseña</label>
                 <input class="form-control mb-3"
+                    id="contraseñaInput"
                     type="text"
                     placeholder="Ingrese su contraseña"
                     required

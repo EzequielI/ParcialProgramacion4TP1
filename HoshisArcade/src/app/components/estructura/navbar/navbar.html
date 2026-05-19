@@ -1,6 +1,7 @@
 <nav class="navbar navbar-expand-lg d-flex align-items-center">
-    <p class="titulo mx-4 mb-0" routerLink="/login">Hoshi's Arcade</p>
-    @if (router.url !== '/login' && router.url !== '/registro' ) {
+    <img class="img ms-4 mb-0 " src="../../../../favicon.ico" routerLink="bienvenida">
+    <p class="titulo mx-4 mb-0">Hoshi's Arcade</p>
+    @if (router.url !== '/' && router.url !== '/registro' ) {
 
         @if(!inicioSesion()){
             <button class="iniciar_sesion_link btn ms-3" routerLink="/login" (click)="iniciarSesion()">Iniciar sesión</button>

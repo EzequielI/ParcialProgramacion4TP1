@@ -30,8 +30,9 @@
         <form class="text-center" [formGroup]="formularioLogin" (ngSubmit)="iniciarSesion()">
 
             <p class="titulo-sesion">Inicie sesión</p>
-            <label class="labels-sesion form-label">Correo</label>
+            <label class="labels-sesion form-label" for="correoInput">Correo</label>
             <input class="form-control mb-3"
+                    id="correoInput"
                     type="email"
                     placeholder="Ingrese su correo"
                     required email
@@ -45,15 +46,16 @@
                         <br>
                     }
 
-            <label class="labels-sesion form-label">Contraseña</label>
+            <label class="labels-sesion form-label" for="contraseñaInput">Contraseña</label>
             <input class="form-control mb-3"
+                    id="contraseñaInput"
                     type="text"
                     placeholder="Ingrese su contraseña"
                     required
                     name="contrasenia"
                     formControlName="clave">
                     @if (clave?.hasError('minlength')) {
-                        <small class="text-danger">La contraseña debe tener minimo 4 caracteres</small>
+                        <small class="text-danger">La contraseña debe tener minimo 6 caracteres</small>
                         <br>
                     }
                     @if (clave?.hasError('required') && clave?.touched) {

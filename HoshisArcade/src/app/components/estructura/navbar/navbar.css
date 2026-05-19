@@ -6,9 +6,6 @@
     color: var(--violeta_oscuro);
     font-size: 2rem;
 }
-.titulo:hover{
-    cursor:pointer
-}
 
 .iniciar_sesion_link{
     color: var(--violeta_oscuro);
@@ -28,4 +25,11 @@
     color: #7cddbd;
     font-family: var(--fuenteJersey25);
     font-size: 1.5rem;
+}
+.img{
+    height: 5rem;
+
+}
+.img:hover{
+    cursor:pointer
 }

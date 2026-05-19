@@ -10,34 +10,28 @@ import { Auth } from '../../../servicios/auth';
 })
 export class Navbar implements OnInit{
 
-  router = inject(Router)
-  usuarioActivo = inject(Auth);
+  readonly router = inject(Router)
+  private usuarioActivo = inject(Auth);
 
   //Gestionara si el boton iniciar sesion dice cerrar sesion o iniciar sesion
-  inicioSesion = this.usuarioActivo.sesion_iniciada;
+  readonly inicioSesion = this.usuarioActivo.sesion_iniciada;
   //Mostrara el nombre actual
-  nombreSesionActual = this.usuarioActivo.nombreSesionActual;
+  readonly nombreSesionActual = this.usuarioActivo.nombreSesionActual;
 
   async ngOnInit() {
-    const sesionActual = localStorage.getItem("sesionActual");
-
-    if (sesionActual) {
-
-      await this.usuarioActivo.mostrarUsuario();
-    }
-
+    await this.usuarioActivo.mostrarUsuario();
   }
   
-  cerrarSesion(){
-    localStorage.clear();
+  async cerrarSesion() {
 
-    this.usuarioActivo.sesion_iniciada.set(false);
+    await this.usuarioActivo.logout();
 
-    this.usuarioActivo.nombreSesionActual.set('');
+    this.router.navigate(['/login']);
 
   }
 
   iniciarSesion(){
     this.router.navigate(['/login']);
   }
+  
 }

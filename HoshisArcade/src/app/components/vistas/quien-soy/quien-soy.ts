@@ -12,14 +12,14 @@ export class QuienSoy implements OnInit {
 
   // Creamos una variable de tipo signal que sea de tipo Alumno para contener los datos traidos de la Api,
   // que tambien puede ser null asi se inicializa y cuando se llamen los datos en el orden de ejecucion no tire error
-  alumno = signal<Alumnos | null>(null)
+  readonly alumno = signal<Alumnos | null>(null)
 
   // Importamos http desde Alumno el servicio con una injeccion en vez de un constructor al ser un metodo mas moderno
-  http = inject(Alumno)
+  private readonly http = inject(Alumno)
 
   // Esta funcion se encargara de traer la URL, suscribirse para que actualice cada vez que traiga los datos y importarselos a la
   // variable alumnos
-  obtenerAlumno(){
+  private obtenerAlumno(){
     this.http.obtenerAlumnoUrl('https://api.github.com/users/EzequielI').subscribe({
       next:(data: any) =>{
       this.alumno.set(data);

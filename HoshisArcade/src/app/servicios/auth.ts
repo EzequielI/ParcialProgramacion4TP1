@@ -1,17 +1,18 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { enviroment } from './enviroment';
-
 @Injectable({
   providedIn: 'root',
 })
-export class Auth {
+export class Auth  {
 
-  sesion_iniciada = signal(false);
-  nombreSesionActual = signal("");
-  supabase = inject(enviroment)
-  supabaseUrl = this.supabase.supabaseUrl
-  supabaseKey = this.supabase.supabaseKey
+  readonly sesion_iniciada = signal(false);
+  readonly nombreSesionActual = signal("");
+
+  private readonly supabase = inject(enviroment)
+
+  private readonly supabaseUrl = this.supabase.supabaseUrl
+  private readonly supabaseKey = this.supabase.supabaseKey
 
   clienteSupabase: SupabaseClient;
 
@@ -49,10 +50,6 @@ export class Auth {
       }
   ]);
   }
-  //Obtendremos los correos de los usuarios
-  async obtenerCorreoDeUsuarios(){
-    return await this.clienteSupabase.from('usuarios').select('correo')
-  }
   //Obtendremos todos los datos de los usuarios
   async obtenerUsuarioDatos(){
     return await this.clienteSupabase.from('usuarios').select("*")
@@ -62,15 +59,27 @@ export class Auth {
   // se inicie sesion y si existe mostrara el nombre
   async mostrarUsuario(){
 
-    const sesionActualStorage = localStorage.getItem("sesionActual");
+    const { data: userData } =
+      await this.clienteSupabase.auth.getUser();
 
-    const respuesta = (await this.obtenerUsuarioDatos()).data;
+    const correoUsuario = userData.user?.email;
 
-      if (!respuesta) return;
+    if (!correoUsuario) {
+
+      this.sesion_iniciada.set(false);
+      this.nombreSesionActual.set("");
+
+      return;
+    }
+
+    const respuesta =
+      (await this.obtenerUsuarioDatos()).data;
+
+    if (!respuesta) return;
 
     respuesta.forEach((usuario: any) => {
 
-      if (sesionActualStorage == usuario.correo) {
+      if (usuario.correo === correoUsuario) {
 
         this.nombreSesionActual.set(usuario.nombre);
 
@@ -79,6 +88,23 @@ export class Auth {
     });
 
     this.sesion_iniciada.set(true);
+  }
+
+  async estaLogueado(): Promise<boolean> {
+
+    const { data } =
+      await this.clienteSupabase.auth.getSession();
+
+    return !!data.session;
+  }
+
+  async logout() {
+
+    await this.clienteSupabase.auth.signOut();
+
+    this.sesion_iniciada.set(false);
+    this.nombreSesionActual.set("");
+
   }
 
 }

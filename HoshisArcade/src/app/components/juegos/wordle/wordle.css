@@ -1,0 +1,5 @@
+.titulo_pagina{
+    color:var(--violeta_oscuro);
+    font-family: var(--fuenteSixtyFour);
+    font-size: 3rem;
+}
