@@ -1,13 +1,13 @@
 
 .titulo_pagina{
     color:var(--violeta_oscuro);
-    font-family: var(--fuente);
+    font-family: var(--fuenteSixtyFour);
     font-size: 4rem;
 }
 
 .subtitulo_pagina{
     color:var(--violeta_oscuro);
-    font-family: var(--fuente);
+    font-family: var(--fuenteJersey25);
     font-size: 2.5rem;
 }
 
@@ -18,12 +18,16 @@
 
 .titulo{
     color:black;
-    font-family: var(--fuente);
+    font-family: var(--fuenteJersey25);
     font-size: 2rem;
 }
 
 .descripcion{
     color: black;
-    font-family: var(--fuente);
-    font-size: 1.2rem;
+    font-family: var(--fuenteJersey25);
+    font-size: 1.4rem;
+}
+.btn{
+    font-family: var(--fuenteScienceGothic);
+    font-size: 1.5rem;
 }

@@ -1,8 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css2?family=Jersey+25&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sixtyfour&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Science+Gothic:wght@100..900&display=swap');
 :root{
-    --fuente: 'Jersey 25', sans-serif;
+    --fuenteJersey25: 'Jersey 25', sans-serif;
+    --fuenteSixtyFour: 'Sixtyfour', sans-serif;
+    --fuenteScienceGothic:'Science Gothic',sans-serief;
     --violeta_oscuro: #9201CB;
+    --violeta_clarito: #a53bcf;
     --celeste_clarito: #7cdadd;
 }
 body{

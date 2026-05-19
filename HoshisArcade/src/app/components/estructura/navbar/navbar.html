@@ -1,18 +1,19 @@
-<nav class="navbar navbar-expand-lg">
-    <p class="titulo mx-4" routerLink="/login">Hoshi's Arcade</p>
+<nav class="navbar navbar-expand-lg d-flex align-items-center">
+    <p class="titulo mx-4 mb-0" routerLink="/login">Hoshi's Arcade</p>
     @if (router.url !== '/login' && router.url !== '/registro' ) {
 
-        @if(inicio_sesion() == false){
-            <button class="iniciar_sesion_link btn" routerLink="/login" (click)="cerrarSesion()">Iniciar sesión</button>
+        @if(!inicioSesion()){
+            <button class="iniciar_sesion_link btn ms-3" routerLink="/login" (click)="iniciarSesion()">Iniciar sesión</button>
 
         }@else {
-                <button class="iniciar_sesion_link btn" routerLink="/login" (click)="iniciarSesion()">Cerrar sesión</button>
-                <p>Sesion iniciada</p>
+                <button class="iniciar_sesion_link btn ms-3" routerLink="/login" (click)="cerrarSesion()">Cerrar sesión</button>
+                <p class="nombreUsuario mb-0 ms-2">Hola, {{nombreSesionActual()}}!</p>
+
             }
-        <div class="position-absolute top-1 end-0">
+        <div class="ms-auto me-4">
             <div>
-                <button class="btn mb-3" routerLink="/bienvenida">Bienvenida</button>
-                <button class="btn mb-3 mx-5 " routerLink="/quien-soy">Quien soy</button>
+                <button class="btn" routerLink="/bienvenida">Bienvenida</button>
+                <button class="btn mx-4 " routerLink="/quien-soy">Quien soy</button>
             </div>
     
         </div>

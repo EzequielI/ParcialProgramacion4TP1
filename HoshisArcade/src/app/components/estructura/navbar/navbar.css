@@ -2,7 +2,7 @@
     background-color: #070F34;
 }
 .titulo{
-    font-family: var(--fuente);
+    font-family: var(--fuenteJersey25);
     color: var(--violeta_oscuro);
     font-size: 2rem;
 }
@@ -20,7 +20,12 @@
 
 .btn{
     background-color: #153c6a;
-    font-family: var(--fuente);
-    font-size: 1.2rem;
-    color: var(--violeta_oscuro);
+    font-family: var(--fuenteJersey25);
+    font-size: 1.4rem;
+    color: var(--violeta_clarito);
+}
+.nombreUsuario{
+    color: #7cddbd;
+    font-family: var(--fuenteJersey25);
+    font-size: 1.5rem;
 }

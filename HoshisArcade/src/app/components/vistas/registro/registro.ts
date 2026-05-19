@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Auth } from '../../../servicios/auth';
+import * as bootstrap from 'bootstrap';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-registro',
@@ -11,68 +13,95 @@ import { Auth } from '../../../servicios/auth';
 })
 export class Registro implements OnInit{
 
-  formularioRegistro! : FormGroup
+  formularioRegistro! : FormGroup;
+  datosUsuarios : any;
+  mensajeRegistro: string = '';
 
-  constructor(private router: Router, private fb : FormBuilder, private supabase : Auth){}
+  private router = inject(Router);
+  private fb = inject(FormBuilder);
+  private supabase = inject(Auth);
+  private cdr = inject(ChangeDetectorRef);
   
   ngOnInit(): void {
     this.formularioRegistro = this.fb.group({
       correo:["", Validators.email],
       //Arreglar los patterns que deja poner solo espacio
-      nombre:["", Validators.pattern('^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$')],
-      apellido:["", Validators.pattern('^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$')],
+      nombre:["", [Validators.pattern('^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+( [a-zA-ZáéíóúÁÉÍÓÚñÑ]+)*$'), ]],
+      apellido:["", Validators.pattern('^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+( [a-zA-ZáéíóúÁÉÍÓÚñÑ]+)*$')],
       edad:["", [Validators.pattern('^[0-9]+$'),Validators.min(10),Validators.max(99)]],
-      clave:["", Validators.minLength(4)]
-    })
+      clave:["", Validators.minLength(6)]
+    });
     
-  }
+  };
   //Getters para obtener los valores de los campos
   get correo() {
-    return this.formularioRegistro.get('correo')
-  }
+    return this.formularioRegistro.get('correo');
+  };
   get nombre() {
-    return this.formularioRegistro.get('nombre')
-  }
+    return this.formularioRegistro.get('nombre');
+  };
   get apellido() {
-    return this.formularioRegistro.get('apellido')
-  }
+    return this.formularioRegistro.get('apellido');
+  };
   get edad() {
-    return this.formularioRegistro.get('edad')
-  }
+    return this.formularioRegistro.get('edad');
+  };
   get clave() {
-    return this.formularioRegistro.get('clave')
-  }
+    return this.formularioRegistro.get('clave');
+  };
   
   async enviarForm(){
     if (this.formularioRegistro.invalid) {
-      console.log("Formulario invalido");
+      this.modalError('Formulario invalido');
       this.formularioRegistro.markAllAsTouched();
       return;
       
-    }else{
-      console.log(this.formularioRegistro.value);
-      const{data,error} = await this.supabase.registrar(
-        this.correo?.value,
-        this.clave?.value
-      );
-      console.log("Datos:", data)
-      console.log("Error:", error)
+    };
+    const respuesta = (await this.supabase.obtenerCorreoDeUsuarios());
+    this.datosUsuarios = respuesta.data;
 
-      if(error){
-    console.log(error.message);
-    return;
-  }
+    const correoExiste = this.datosUsuarios.some(
+      (usuario: any) => usuario.correo === this.correo?.value
+    );
+    
+    if (correoExiste) {
+      this.modalError('Este usuario ya esta registrado')
+      return;
+    };
 
-    // GUARDAR DATOS
+    // Guardar datos para inicio
+    const{error} = await this.supabase.registrar(
+      this.correo?.value,
+      this.clave?.value
+    );
+        
+    if(error){
+      this.modalError('Error al registrar usuario');
+      return;
+    };
+        
+    // Guardar datos generales del Usuario
     await this.supabase.guardarDatosUsuarios(
       this.correo?.value,
       this.nombre?.value,
       this.apellido?.value,
       parseInt(this.edad?.value)
     );
-    
-      this.router.navigate(['/login']);
+        
+    this.router.navigate(['/login']);
+  };
+  
+  // Metodo que muestra el modal generico usado para mostrar mensajes de error
+  modalError(mensaje: string){
+    this.mensajeRegistro = mensaje;
+
+    this.cdr.detectChanges();
+
+    const modalAviso = document.getElementById('modalAviso');
+
+    if (modalAviso) {
+      const modal = new bootstrap.Modal(modalAviso);
+      modal.show();
     }
   }
-  
 }

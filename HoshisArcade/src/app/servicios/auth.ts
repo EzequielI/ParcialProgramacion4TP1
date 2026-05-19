@@ -7,10 +7,11 @@ import { enviroment } from './enviroment';
 })
 export class Auth {
 
-  sesion_iniciada = signal(false)
-  supabaseUrl = inject(enviroment).supabaseUrl
-  supabaseKey = inject(enviroment).supabaseKey
-
+  sesion_iniciada = signal(false);
+  nombreSesionActual = signal("");
+  supabase = inject(enviroment)
+  supabaseUrl = this.supabase.supabaseUrl
+  supabaseKey = this.supabase.supabaseKey
 
   clienteSupabase: SupabaseClient;
 
@@ -48,9 +49,36 @@ export class Auth {
       }
   ]);
   }
+  //Obtendremos los correos de los usuarios
+  async obtenerCorreoDeUsuarios(){
+    return await this.clienteSupabase.from('usuarios').select('correo')
+  }
+  //Obtendremos todos los datos de los usuarios
+  async obtenerUsuarioDatos(){
+    return await this.clienteSupabase.from('usuarios').select("*")
+  }
+  //Traeremos los datos del local storage, los compararemos 
+  // para ver si hay algun usuario con ese correo registrado cuando
+  // se inicie sesion y si existe mostrara el nombre
+  async mostrarUsuario(){
 
-  async obtenerDatosUsuarios(){
-    return await this.clienteSupabase.from('usuarios').select('*')
+    const sesionActualStorage = localStorage.getItem("sesionActual");
+
+    const respuesta = (await this.obtenerUsuarioDatos()).data;
+
+      if (!respuesta) return;
+
+    respuesta.forEach((usuario: any) => {
+
+      if (sesionActualStorage == usuario.correo) {
+
+        this.nombreSesionActual.set(usuario.nombre);
+
+      }
+
+    });
+
+    this.sesion_iniciada.set(true);
   }
 
 }

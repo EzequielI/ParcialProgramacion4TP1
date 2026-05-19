@@ -3,17 +3,17 @@
 }
 
 .titulo-registro{
-    font-family: var(--fuente);
+    font-family: var(--fuenteJersey25);
     color: black;
     font-size: 2rem;
 }
 
 .labels-registro{
-    font-family: var(--fuente);
+    font-family: var(--fuenteJersey25);
     color: black;
     font-size: 1.5rem;
 }
 .btn{
-    font-family: var(--fuente);
+    font-family: var(--fuenteJersey25);
     font-size: 1.3rem;
 }

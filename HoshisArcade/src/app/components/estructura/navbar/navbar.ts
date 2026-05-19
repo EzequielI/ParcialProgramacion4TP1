@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterLink, Router } from "@angular/router";
 import { Auth } from '../../../servicios/auth';
 
@@ -8,17 +8,36 @@ import { Auth } from '../../../servicios/auth';
   templateUrl: './navbar.html',
   styleUrl: './navbar.css',
 })
-export class Navbar {
+export class Navbar implements OnInit{
 
-  constructor(public router: Router) {}
+  router = inject(Router)
+  usuarioActivo = inject(Auth);
 
-  inicio_sesion = inject(Auth).sesion_iniciada
+  //Gestionara si el boton iniciar sesion dice cerrar sesion o iniciar sesion
+  inicioSesion = this.usuarioActivo.sesion_iniciada;
+  //Mostrara el nombre actual
+  nombreSesionActual = this.usuarioActivo.nombreSesionActual;
 
+  async ngOnInit() {
+    const sesionActual = localStorage.getItem("sesionActual");
+
+    if (sesionActual) {
+
+      await this.usuarioActivo.mostrarUsuario();
+    }
+
+  }
+  
   cerrarSesion(){
-    this.inicio_sesion.set(true)
+    localStorage.clear();
+
+    this.usuarioActivo.sesion_iniciada.set(false);
+
+    this.usuarioActivo.nombreSesionActual.set('');
+
   }
 
   iniciarSesion(){
-    this.inicio_sesion.set(false)
+    this.router.navigate(['/login']);
   }
 }

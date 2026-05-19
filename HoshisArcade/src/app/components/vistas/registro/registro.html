@@ -1,4 +1,30 @@
+<div class="modal fade" id="modalAviso" tabindex="-1" aria-hidden="true" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Aviso</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                {{ mensajeRegistro }}
+                
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">
+                    Cerrar
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 <div class="row justify-content-center mt-5">
+
+    
     <div class="contenedor col-lg-4 p-4 rounded-5">
 
         <form class="text-center" [formGroup]="formularioRegistro" (ngSubmit)="enviarForm()">
@@ -78,7 +104,7 @@
                     required
                     formControlName="clave">
                     @if (clave?.hasError('minlength')) {
-                        <small class="text-danger">La contraseña debe tener minimo 4 caracteres</small>
+                        <small class="text-danger">La contraseña debe tener minimo 6 caracteres</small>
                         <br>
                     }
                     @if (clave?.hasError('required') && clave?.touched) {
