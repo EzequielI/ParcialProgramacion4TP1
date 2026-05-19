@@ -1,0 +1,26 @@
+<h1 class="titulo mt-5">Bienvenido a Hoshi's Arcade!!</h1>
+<div class="row justify-content-center">
+
+    <div class="contenedor col-lg-4 p-4 rounded-5" >
+
+        <form class="text-center">
+
+            <p class="titulo-sesion">Inicie sesión</p>
+            <label class="labels-sesion form-label">Correo</label>
+            <input class="form-control mb-3"
+                    type="email"
+                    placeholder="Ingrese su correo"
+                    required email>
+
+            <label class="labels-sesion form-label">Contraseña</label>
+            <input class="form-control mb-3"
+                    type="text"
+                    placeholder="Ingrese su contraseña"
+                    required>
+
+            <button class="btn btn-primary w-100 mb-3" (click)="iniciarSesion()">Iniciar Sesión</button>
+            <label class="labels-sesion">Aún no tenes cuenta?</label>
+            <button class="btn btn-outline-primary w-100 mt-2" (click)="registrarse()">Registrarse</button>
+        </form>
+    </div>
+</div>
