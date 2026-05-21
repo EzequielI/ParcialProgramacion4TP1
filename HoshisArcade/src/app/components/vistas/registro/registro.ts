@@ -4,10 +4,11 @@ import { Router } from '@angular/router';
 import { Auth } from '../../../servicios/auth';
 import * as bootstrap from 'bootstrap';
 import { ChangeDetectorRef } from '@angular/core';
+import { Mensajes } from '../../estructura/mensajes/mensajes';
 
 @Component({
   selector: 'app-registro',
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule,Mensajes],
   templateUrl: './registro.html',
   styleUrl: './registro.css',
 })
@@ -15,7 +16,7 @@ export class Registro implements OnInit{
 
   formularioRegistro! : FormGroup;
   private datosUsuarios : any;
-  mensajeRegistro: string = '';
+  mensajeError: string = "";
 
   private readonly router = inject(Router);
   private readonly fb = inject(FormBuilder);
@@ -52,7 +53,7 @@ export class Registro implements OnInit{
   
   async enviarForm(){
     if (this.formularioRegistro.invalid) {
-      this.modalError('Formulario invalido');
+      this.mensajeError = 'Formulario invalido';
       this.formularioRegistro.markAllAsTouched();
       return;
       
@@ -65,7 +66,7 @@ export class Registro implements OnInit{
     );
     
     if (correoExiste) {
-      this.modalError('Este usuario ya esta registrado')
+      this.mensajeError = 'Este usuario ya esta registrado';
       return;
     };
 
@@ -76,7 +77,7 @@ export class Registro implements OnInit{
     );
         
     if(error){
-      this.modalError('Error al registrar usuario');
+      this.mensajeError = 'Error al registrar usuario';
       return;
     };
         
@@ -87,21 +88,10 @@ export class Registro implements OnInit{
       this.apellido?.value,
       parseInt(this.edad?.value)
     );
-        
-    this.router.navigate(['/login']);
+      
+    this.supabase.cerrarSesionRegistro();
+    this.router.navigate(['']);
   };
   
-  // Metodo que muestra el modal generico usado para mostrar mensajes de error
-  modalError(mensaje: string){
-    this.mensajeRegistro = mensaje;
-
-    this.cdr.detectChanges();
-
-    const modalAviso = document.getElementById('modalAviso');
-
-    if (modalAviso) {
-      const modal = new bootstrap.Modal(modalAviso);
-      modal.show();
-    }
-  }
+  
 }

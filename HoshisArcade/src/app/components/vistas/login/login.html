@@ -1,26 +1,6 @@
-<div class="modal fade" id="modalAviso" tabindex="-1" aria-hidden="true" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <h5 class="modal-title">Error</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-
-            <div class="modal-body">
-                {{ mensajeLogin }}
-                
-            </div>
-
-            <div class="modal-footer">
-                <button class="btn btn-secondary" data-bs-dismiss="modal">
-                    Cerrar
-                </button>
-            </div>
-
-        </div>
-    </div>
-</div>
+<app-mensajes
+    [mensajeError]="mensajeError">
+</app-mensajes>
 
 <h1 class="titulo mt-5">Bienvenido a Hoshi's Arcade!!</h1>
 <div class="row justify-content-center">
@@ -38,18 +18,18 @@
                     required email
                     formControlName="correo">
                     @if (correo?.hasError('email')) {
-                        <small class="text-danger">Formato invalido</small>
+                        <small class="text-danger">Correo invalido</small>
                         <br>
                     }
                     @if (correo?.hasError('required') && correo?.touched) {
-                        <small class="text-danger">Campo obligatorio</small>
+                        <small class="text-danger">Se debe ingresar un correo</small>
                         <br>
                     }
 
             <label class="labels-sesion form-label" for="contraseñaInput">Contraseña</label>
             <input class="form-control mb-3"
                     id="contraseñaInput"
-                    type="text"
+                    type="password"
                     placeholder="Ingrese su contraseña"
                     required
                     name="contrasenia"
@@ -59,7 +39,7 @@
                         <br>
                     }
                     @if (clave?.hasError('required') && clave?.touched) {
-                        <small class="text-danger">Campo obligatorio</small>
+                        <small class="text-danger">Se debe ingresar una contraseña</small>
                         <br>
                     }
 

@@ -11,8 +11,8 @@ export class Auth  {
 
   private readonly supabase = inject(enviroment)
 
-  private readonly supabaseUrl = this.supabase.supabaseUrl
-  private readonly supabaseKey = this.supabase.supabaseKey
+  readonly supabaseUrl = this.supabase.supabaseUrl
+  readonly supabaseKey = this.supabase.supabaseKey
 
   clienteSupabase: SupabaseClient;
 
@@ -25,6 +25,9 @@ export class Auth  {
       email:correo,
       password:clave,
     });
+  }
+  async cerrarSesionRegistro(){
+    await this.clienteSupabase.auth.signOut();
   }
   //Iniciar sesion
   async iniciarSesion(correo:string,clave:string){

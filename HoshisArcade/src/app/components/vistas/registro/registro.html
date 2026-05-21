@@ -1,26 +1,6 @@
-<div class="modal fade" id="modalAviso" tabindex="-1" aria-hidden="true" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <h5 class="modal-title">Aviso</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-
-            <div class="modal-body">
-                {{ mensajeRegistro }}
-                
-            </div>
-
-            <div class="modal-footer">
-                <button class="btn btn-secondary" data-bs-dismiss="modal">
-                    Cerrar
-                </button>
-            </div>
-
-        </div>
-    </div>
-</div>
+<app-mensajes
+    [mensajeError]="mensajeError">
+</app-mensajes>
 
 <div class="row justify-content-center mt-5">
 
@@ -42,7 +22,7 @@
                         <br>
                     }
                     @if (nombre?.hasError('required') && nombre?.touched) {
-                        <small class="text-danger">Campo obligatorio</small>
+                        <small class="text-danger">Se debe ingresar un nombre</small>
                         <br>
                     }
 
@@ -58,14 +38,14 @@
                         <br>
                     }
                     @if (apellido?.hasError('required') && apellido?.touched) {
-                        <small class="text-danger">Campo obligatorio</small>
+                        <small class="text-danger">Se debe ingresar un apellido</small>
                         <br>
                     }
 
             <label class="labels-registro form-label" for="edadInput">Edad</label>
             <input class="form-control mb-3"
                     id="edadInput"
-                    type="text"
+                    type="number"
                     placeholder="Ingrese su edad"
                     required
                     formControlName="edad">
@@ -81,7 +61,7 @@
                         <br>
                     }
                     @if (edad?.hasError('required') && edad?.touched) {
-                        <small class="text-danger">Campo obligatorio</small>
+                        <small class="text-danger">Se debe ingresar una edad</small>
                         <br>
                     }
 
@@ -97,14 +77,14 @@
                         <br>
                     }
                     @if (correo?.hasError('required') && correo?.touched) {
-                        <small class="text-danger">Campo obligatorio</small>
+                        <small class="text-danger">Se debe ingresar un correo</small>
                         <br>
                     }
 
             <label class="labels-registro form-label" for="contraseñaInput">Contraseña</label>
                 <input class="form-control mb-3"
                     id="contraseñaInput"
-                    type="text"
+                    type="password"
                     placeholder="Ingrese su contraseña"
                     required
                     formControlName="clave">
@@ -113,7 +93,7 @@
                         <br>
                     }
                     @if (clave?.hasError('required') && clave?.touched) {
-                        <small class="text-danger">Campo obligatorio</small>
+                        <small class="text-danger">Se debe ingresar una contraseña</small>
                         <br>
                     }
 

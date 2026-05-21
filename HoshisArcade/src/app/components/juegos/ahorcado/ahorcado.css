@@ -3,3 +3,35 @@
     font-family: var(--fuenteSixtyFour);
     font-size: 3rem;
 }
+.palabra{
+    color: var(--violeta_oscuro);
+    font-family: var(--fuenteJersey25);
+    font-size: 4rem;
+}
+.letra{
+    min-width: 1rem;
+    text-align: center;
+}
+.letraAbecedario{
+    font-family: var(--fuenteJersey25);
+    font-size: 2rem;
+}
+.mensajeEstado{
+    font-family: var(--fuenteSixtyFour);
+    font-size: 4rem;
+}
+
+.mensajePerder{
+    color:red;
+}
+
+.mensajeGanar{
+    color:green;
+}
+
+.botonesJuegoTerminado{
+    background-color: var(--celeste_clarito);
+    color: white;
+    font-size: 2rem;
+    font-family: var(--fuenteScienceGothic);
+}

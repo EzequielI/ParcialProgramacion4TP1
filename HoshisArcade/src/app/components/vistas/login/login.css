@@ -20,3 +20,12 @@
     font-family: var(--fuenteJersey25);
     font-size: 1.3rem;
 }
+
+.textoError{
+    color: red;
+    font-weight: bold;
+}
+
+.text-danger{
+    font-size: 1.1rem;
+}
