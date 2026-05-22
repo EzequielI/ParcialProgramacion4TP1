@@ -3,3 +3,34 @@
     font-family: var(--fuenteSixtyFour);
     font-size: 3rem;
 }
+
+.textos{
+    font-family: var(--fuenteJersey25);
+    font-size: 3rem;
+    color: yellow;
+}
+.ganar{
+    font-family: var(--fuenteJersey25);
+    font-size: 3rem;
+    color: green;
+}
+.perder{
+    font-family: var(--fuenteJersey25);
+    font-size: 3rem;
+    color: red;
+}
+.botonesJuegoTerminado{
+    background-color: var(--celeste_clarito);
+    color: white;
+    font-size: 2rem;
+    font-family: var(--fuenteScienceGothic);
+}
+.botonAdivinar{
+    font-family: var(--fuenteJersey25);
+    font-size: 2rem;
+
+}
+
+.imagenesCorazon{
+    width: 4rem;
+}

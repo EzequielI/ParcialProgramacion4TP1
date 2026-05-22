@@ -1,6 +1,8 @@
 import { ChangeDetectorRef, Component, inject, OnInit, signal } from '@angular/core';
 import { AhorcadoLogica } from '../../../servicios/ahorcado-logica';
 import { RouterLink } from "@angular/router";
+import { PuntuacionJuegos } from '../../../servicios/puntuacion-juegos';
+import { Auth } from '../../../servicios/auth';
 
 @Component({
   selector: 'app-ahorcado',
@@ -11,7 +13,9 @@ import { RouterLink } from "@angular/router";
 export class Ahorcado implements OnInit {
 
   private readonly supabase = inject(AhorcadoLogica);
-  private readonly cdr = inject(ChangeDetectorRef)
+  private readonly cdr = inject(ChangeDetectorRef);
+  private readonly auth = inject(Auth)
+  readonly puntuacionServicio = inject(PuntuacionJuegos);
 
   palabraElegida : string = "";
   
@@ -22,34 +26,29 @@ export class Ahorcado implements OnInit {
   private vidas = 6
 
   readonly abecedario: string[] = [
-  'A','B','C','D','E','F','G',
-  'H','I','J','K','L','M','N',
-  'Ñ','O','P','Q','R','S','T',
-  'U','V','W','X','Y','Z'
+    'A','B','C','D','E','F','G',
+    'H','I','J','K','L','M','N',
+    'Ñ','O','P','Q','R','S','T',
+    'U','V','W','X','Y','Z'
   ];
 
   async ngOnInit() {
     await this.reiniciarJuego();
+    this.auth.obtenerUsuarioDatos()
   }
   
   private quitarVida = true;
   private letrasAcertadas = 0;
   readonly letrasPresionadas = signal<string[]>([]);
+  private totalLetrasPresionadas = 0
   juegoTerminado: boolean = false;
   estadoJuegoMensaje: string = "";
   colorEstado: string = "";
-  spritesAhorcado: string[] = ['Ahorcado0Vidas.png',
-    'Ahorcado1Vidas.png',
-    'Ahorcado2Vidas.png',
-    'Ahorcado3Vidas.png',
-    'Ahorcado4Vidas.png',
-    'Ahorcado5Vidas.png',
-    'Ahorcado6Vidas.png',
-  ];
   vidasJugador = "";
 
   seleccionarLetra(letra: string) {
     
+    this.totalLetrasPresionadas += 1;
     //Se encarga de actualizar y hacer que la tecla se deshabilite
     if (this.letrasPresionadas().includes(letra)) {
       return;
@@ -64,11 +63,13 @@ export class Ahorcado implements OnInit {
         this.palabraVisible[i] = letra;
         this.quitarVida = false
         this.letrasAcertadas += 1
+        this.puntuacionServicio.sumarAcierto();
       }
       
     }
     if (this.quitarVida == true) {
       this.vidas -= 1;
+      this.puntuacionServicio.restarError();
     }
     this.quitarVida = true
     this.estadoJuego()
@@ -79,16 +80,21 @@ export class Ahorcado implements OnInit {
     //Perdiste
     if (this.vidas == 0) {
       this.juegoTerminado = true;
+      this.puntuacionServicio.detenerTiempo();
       this.estadoJuegoMensaje = "Perdiste";
       this.colorEstado = "mensajePerder";
+      this.supabase.subirDatosAhorcado(this.totalLetrasPresionadas);
     }
     //Ganaste
     if(this.letrasAcertadas == this.palabraElegida.length){
       this.juegoTerminado = true;
+      this.puntuacionServicio.detenerTiempo();
       this.estadoJuegoMensaje = "Ganaste!"
       this.colorEstado = "mensajeGanar";
+      this.supabase.subirDatosAhorcado(this.totalLetrasPresionadas);
     }
   }
+  // Se encargara de cambiar la imagen para mostrar las vidas
   cambiarSpriteVidas(){
     switch(this.vidas){
       case 6:
@@ -115,9 +121,10 @@ export class Ahorcado implements OnInit {
   }
   
   async reiniciarJuego(){
-
+    //Trae las palabras
     const palabrasLista = (await this.supabase.traerJuegos()).data;
 
+    //Elige una palabra aleatoria
     this.palabraElegida = palabrasLista?.[
       Math.floor(Math.random() * palabrasLista?.length)
     ].palabra;
@@ -126,10 +133,10 @@ export class Ahorcado implements OnInit {
 
     this.palabraVisible = Array(this.letras.length).fill('_');
 
-    // Reiniciar vidas
+    // Reinicia las vidas
     this.vidas = 6;
 
-    // Reiniciar estados
+    // Reinicia el estado del juego
     this.juegoTerminado = false;
 
     this.estadoJuegoMensaje = "";
@@ -141,11 +148,17 @@ export class Ahorcado implements OnInit {
 
     this.letrasAcertadas = 0;
 
-    // Reiniciar letras usadas
+    // Reiniciar letras apretadas
     this.letrasPresionadas.set([]);
 
-    // Reiniciar sprite
+    // Reiniciar sprite del ahorcado
     this.cambiarSpriteVidas();
+
+    this.puntuacionServicio.detenerTiempo();
+
+    this.puntuacionServicio.reiniciarPuntuacion();
+
+    this.puntuacionServicio.iniciarTiempo();
 
     this.cdr.detectChanges();
   }

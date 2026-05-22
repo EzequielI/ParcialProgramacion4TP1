@@ -1,1 +1,28 @@
-<h1 class="titulo_pagina">Estas en Mayor o Menor</h1>
+<h1 class="titulo_pagina">Mayor o Menor</h1>
+
+<div>@if (jugando) {
+    <img class="mt-5" src="{{cartaActualSprite}}" alt="">
+
+    <h3 class="{{estadoJuego}}">{{ mensaje }}</h3>
+    @if (this.vidas > 0) {
+        <img class="imagenesCorazon mt-5" [hidden]="vidas < 3" src="SpriteCartas/Heart.png" alt="">
+        <img class="imagenesCorazon mt-5 ms-3" [hidden]="vidas < 2" src="SpriteCartas/Heart.png" alt="">
+        <img class="imagenesCorazon mt-5 ms-3" [hidden]="vidas < 1" src="SpriteCartas/Heart.png" alt="">
+    }
+    @if (!juegoTerminado) {
+        <div class="botones">
+            <button class="botonAdivinar btn btn-primary mt-5" [disabled]="juegoTerminado" (click)="jugar('mayor')">Mayor</button>
+            <button class="botonAdivinar btn btn-primary mt-5 ms-5" [disabled]="juegoTerminado" (click)="jugar('menor')">Menor</button>
+        </div>
+
+    
+        <p class="textos mt-2">Aciertos: {{ aciertos }}</p>
+    }
+    <p class="textos">Puntuación: {{ puntuacionSrv.puntuacion() }}</p>
+    @if (juegoTerminado) {
+        <button class="btn botonesJuegoTerminado mt-5 ms-5" (click)="iniciarJuego()">Volver a jugar</button>
+        <button class="btn botonesJuegoTerminado mt-5 ms-5" routerLink="/bienvenida">Ir al Menu</button>
+    }
+
+}
+</div>

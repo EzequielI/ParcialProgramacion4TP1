@@ -2,8 +2,6 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Auth } from '../../../servicios/auth';
-import * as bootstrap from 'bootstrap';
-import { ChangeDetectorRef } from '@angular/core';
 import { Mensajes } from '../../estructura/mensajes/mensajes';
 
 @Component({
@@ -21,7 +19,6 @@ export class Registro implements OnInit{
   private readonly router = inject(Router);
   private readonly fb = inject(FormBuilder);
   private readonly supabase = inject(Auth);
-  private readonly cdr = inject(ChangeDetectorRef);
   
   ngOnInit(): void {
     this.formularioRegistro = this.fb.group({
