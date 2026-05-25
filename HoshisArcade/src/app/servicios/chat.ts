@@ -8,7 +8,9 @@ import { Mensaje } from '../modelos/mensajes/mensajeModelo';
 export class Chat {
 
   private readonly supabase = inject(Auth)
-  private readonly mensajes = signal<Mensaje[]>([]);
+  private readonly _mensajes = signal<Mensaje[]>([]);
+  readonly mensajes = this._mensajes.asReadonly();
+
   private readonly yaEjecutado = signal(false);
 
   constructor(){
@@ -27,7 +29,7 @@ export class Chat {
         ...mensaje,
         mensajePropio: mensaje.usuarios.nombre === nombreActual
       }));
-      this.mensajes.set(mensajesFormateados as Mensaje[])}
+      this._mensajes.set(mensajesFormateados as Mensaje[])}
   }
 
   escucharMensajes(){
