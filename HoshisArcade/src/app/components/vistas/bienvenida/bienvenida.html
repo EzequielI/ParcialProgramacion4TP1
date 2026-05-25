@@ -4,25 +4,36 @@
 <div class="container mt-4">
     <div class="row justify-content-center">
 
-    @for (juego of juegos; track juego.nombre_juego) {
-        <div class="col-12 col-md-6 col-lg-4 d-flex justify-content-center">
-            <div class="contenedor p-4 m-2 rounded-5 w-100">
-                <div class="row align-items-center">
-                
-                    <div class="col-8">
-                        <p class="titulo">{{juego.nombre_juego}}</p>
-                        <p class="descripcion">{{juego.descripcion}}</p>
-                        <button [disabled]="!sesion()" class="btn btn-primary" routerLink="/{{juego.path}}">Jugar</button>
+        @for (juego of juegos; track juego.nombre_juego) {
+            <div class="col-12 col-md-6 col-lg-5 d-flex justify-content-center">
+                <div class="contenedor p-4 m-2 rounded-5 w-100">
+                    <div class="row align-items-center">
+                    
+                        <div class="col-8">
+                            <p class="titulo">{{juego.nombre_juego}}</p>
+                            <p class="descripcion">{{juego.descripcion}}</p>
+                            <button [disabled]="!sesion()" class="btn btn-primary" routerLink="/{{juego.path}}">Jugar</button>
+                        </div>
+
+                    <div class="col-4 d-flex justify-content-end">
+                        <img class="img-fluid" [src]="juego.foto">
                     </div>
 
-                <div class="col-4 d-flex justify-content-end">
-                    <img class="img-fluid" [src]="juego.foto">
-                </div>
-
+                    </div>
                 </div>
             </div>
-        </div>
-    }
-
+        }
+    
     </div>
 </div>
+@if (sesion() && mostrarChat()) {
+    <div class="chat-fijo">
+        <app-chat-mensajes (cerrarChat)="mostrarChat.set(false)"
+        
+        ></app-chat-mensajes>
+    </div>
+}
+@if (sesion() && !mostrarChat()) {
+
+    <button class="botonAbrirChat" (click)="mostrarChat.set(true)">💬</button>
+}

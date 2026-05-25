@@ -34,3 +34,25 @@
 .imagenesCorazon{
     width: 4rem;
 }
+
+.chat-fijo{
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 320px;
+    z-index: 1000;
+}
+
+.botonAbrirChat{
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: none;
+    font-size: 30px;
+    background-color: #0d6efd;
+    color: white;
+    z-index: 1000;
+}

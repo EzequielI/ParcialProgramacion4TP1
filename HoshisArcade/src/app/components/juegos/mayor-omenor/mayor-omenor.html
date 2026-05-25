@@ -1,28 +1,39 @@
 <h1 class="titulo_pagina">Mayor o Menor</h1>
 
-<div>@if (jugando) {
-    <img class="mt-5" src="{{cartaActualSprite}}" alt="">
+<div>@if (juego.jugando()) {
+    <img class="mt-5" src="{{juego.cartaActualSprite()}}" alt="">
 
-    <h3 class="{{estadoJuego}}">{{ mensaje }}</h3>
-    @if (this.vidas > 0) {
-        <img class="imagenesCorazon mt-5" [hidden]="vidas < 3" src="SpriteCartas/Heart.png" alt="">
-        <img class="imagenesCorazon mt-5 ms-3" [hidden]="vidas < 2" src="SpriteCartas/Heart.png" alt="">
-        <img class="imagenesCorazon mt-5 ms-3" [hidden]="vidas < 1" src="SpriteCartas/Heart.png" alt="">
+    <h3 class="{{juego.estadoJuego()}}">{{juego.mensaje() }}</h3>
+    @if (this.juego.vidas() > 0) {
+        <img class="imagenesCorazon mt-5" [hidden]="juego.vidas() < 3" src="SpriteCartas/Heart.png" alt="">
+        <img class="imagenesCorazon mt-5 ms-3" [hidden]="juego.vidas() < 2" src="SpriteCartas/Heart.png" alt="">
+        <img class="imagenesCorazon mt-5 ms-3" [hidden]="juego.vidas() < 1" src="SpriteCartas/Heart.png" alt="">
     }
-    @if (!juegoTerminado) {
+    @if (!juego.juegoTerminado()) {
         <div class="botones">
-            <button class="botonAdivinar btn btn-primary mt-5" [disabled]="juegoTerminado" (click)="jugar('mayor')">Mayor</button>
-            <button class="botonAdivinar btn btn-primary mt-5 ms-5" [disabled]="juegoTerminado" (click)="jugar('menor')">Menor</button>
+            <button class="botonAdivinar btn btn-primary mt-5" [disabled]="juego.juegoTerminado()" (click)="juego.jugar('mayor')">Mayor</button>
+            <button class="botonAdivinar btn btn-primary mt-5 ms-5" [disabled]="juego.juegoTerminado()" (click)="juego.jugar('menor')">Menor</button>
         </div>
 
     
-        <p class="textos mt-2">Aciertos: {{ aciertos }}</p>
+        <p class="textos mt-2">Aciertos: {{ juego.aciertos() }}</p>
     }
-    <p class="textos">Puntuación: {{ puntuacionSrv.puntuacion() }}</p>
-    @if (juegoTerminado) {
-        <button class="btn botonesJuegoTerminado mt-5 ms-5" (click)="iniciarJuego()">Volver a jugar</button>
+    <p class="textos">Puntuación: {{ juego.puntuacionServicio.puntuacion() }}</p>
+    @if (juego.juegoTerminado()) {
+        <button class="btn botonesJuegoTerminado mt-5 ms-5" (click)="juego.iniciarJuego()">Volver a jugar</button>
         <button class="btn botonesJuegoTerminado mt-5 ms-5" routerLink="/bienvenida">Ir al Menu</button>
     }
 
 }
 </div>
+@if (sesion() && mostrarChat()) {
+    <div class="chat-fijo">
+        <app-chat-mensajes (cerrarChat)="mostrarChat.set(false)"
+        
+        ></app-chat-mensajes>
+    </div>
+}
+@if (sesion() && !mostrarChat()) {
+
+    <button class="botonAbrirChat" (click)="mostrarChat.set(true)">💬</button>
+}

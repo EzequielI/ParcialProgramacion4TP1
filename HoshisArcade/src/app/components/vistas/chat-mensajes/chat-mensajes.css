@@ -1,0 +1,72 @@
+.chatContenedor{
+    background-color: #932DBA;
+    width: 400px;
+    height: 600px;
+
+    display: flex;
+    flex-direction: column;
+
+}
+
+.titulo{
+    font-family: var(--fuenteJersey25);
+    font-size: 3.5rem;
+}
+
+.lista-Mensajes div {
+    max-width: 90%;
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+}
+
+.lista-Mensajes {
+    flex: 1;
+    max-height: 400px;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    display: flex;
+    flex-direction: column;
+
+    padding-right: 10px;
+}
+
+.contenido{
+    font-family: var(--fuenteJersey25);
+    font-size: 1.3rem;
+}
+.mensaje-otro{
+    font-family: var(--fuenteJersey25);
+    font-size: 1.3rem;
+    color: #9BBA2D;
+}
+.mensaje-propio{
+    font-family: var(--fuenteJersey25);
+    font-size: 1.3rem;
+    color: #2DBA4C;
+}
+
+.cuadradoEscribir{
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    padding-top: 10px;
+    position: sticky;
+    bottom: 0;
+}
+
+.botonCerrar{
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: none;
+    background-color: crimson;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+

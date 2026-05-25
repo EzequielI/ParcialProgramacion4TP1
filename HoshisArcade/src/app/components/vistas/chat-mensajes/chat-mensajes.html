@@ -1,0 +1,24 @@
+<div class="chatContenedor p-5 rounded-5">
+    <button class="botonCerrar" (click)="cerrarChat.emit()">X</button>
+    <h1 class="titulo">Chat:</h1>
+    <div class="lista-Mensajes" #contenedorMensajes>
+        @for (mensaje of chat.mensajes(); track mensaje.id) {
+            <div class="">
+            @if (mensaje.mensajePropio) {
+                <span>[{{mensaje.created_at | date:'HH:mm'}}] </span>
+                <span class="mensaje-propio">{{mensaje.usuarios?.nombre}}</span>
+                <span class="contenido">: {{mensaje.contenido}}</span>
+            }@else {
+                <!-- Esto es un date pipe que sirve para formatear como pasa el dato-->
+                <span>[{{mensaje.created_at | date:'HH:mm'}}] </span>
+                <span class="mensaje-otro">{{mensaje.usuarios?.nombre}}</span>
+                <span class="contenido">: {{mensaje.contenido}}</span>
+            }
+            </div>
+        }
+    </div>
+    <div class=" d-flex">
+        <input class="cuadradoEscribir mt-4 rounded-5" [(ngModel)] = 'nuevoMensaje' placeholder="Escriba su mensaje aqui" (keyup.enter)="EnviarMensaje()">
+        <button class="ms-2 mt-4 rounded-2" (click)="EnviarMensaje()">➤</button>
+    </div>
+</div>

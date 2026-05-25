@@ -7,11 +7,15 @@ import { Auth } from './auth';
 export class PuntuacionJuegos {
 
   private readonly auth = inject(Auth)
-  puntuacion = signal(0);
-  tiempoJugado = signal(0)
+  private readonly _puntuacion = signal(0);
+  readonly puntuacion = this._puntuacion.asReadonly()
+
+  private readonly _tiempoJugado = signal(0)
+  readonly tiempoJugado = this._tiempoJugado.asReadonly()
+
   private intervalo : any;
-  constructor(){}
   
+  // Traera el correo del usuario actual
   async traerCorreoUsuario(){
     const {
     data: { user }
@@ -23,17 +27,19 @@ export class PuntuacionJuegos {
   return user?.email ?? "";
   }
 
+  // Traera el nombre del usuario actual
   obtenerNombreSesion(){
     return this.auth.nombreSesionActual();
 
   } 
 
+  // Inicia el tiempo y empieza a restar puntos de la puntuacion
   iniciarTiempo(){
     this.intervalo = setInterval(() => {
 
-        this.tiempoJugado.update(valor => valor + 1);
+        this._tiempoJugado.update(valor => valor + 1);
 
-      this.puntuacion.update(valor => {
+      this._puntuacion.update(valor => {
 
         const nuevoValor = valor - 10;
 
@@ -43,17 +49,20 @@ export class PuntuacionJuegos {
     }, 1000);
   }
 
+  // Para el contador
   detenerTiempo(){
     clearInterval(this.intervalo);
   }
 
+  // Cuando se acierte en algun juego esto sumara
   sumarAcierto(){
-    this.puntuacion.update(valor => valor + 200);
+    this._puntuacion.update(valor => valor + 200);
 
   }
 
+  // Cuando haya algun error en un juego esto restara
   restarError(){
-    this.puntuacion.update(valor => {
+    this._puntuacion.update(valor => {
 
       const nuevoValor = valor - 100;
 
@@ -62,8 +71,9 @@ export class PuntuacionJuegos {
 
   }
 
+  // Esto reiniciara a 0 la puntuacion
   reiniciarPuntuacion(){
-    this.puntuacion.set(0);
+    this._puntuacion.set(0);
 
   }
 }

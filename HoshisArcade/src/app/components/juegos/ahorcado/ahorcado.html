@@ -1,7 +1,7 @@
 <h1 class="titulo_pagina ">Adivina la palabra!</h1>
-<h2>Puntuacion: {{puntuacionServicio.puntuacion()}}</h2>
+<h2>Puntuacion: {{juego.puntuacionJuegos.puntuacion()}}</h2>
 <div class="palabra d-flex justify-content-center gap-3  mt-5">   
-    @for (letra of palabraVisible; track $index) {
+    @for (letra of juego.palabraVisible(); track $index) {
         
         <div>
             <p class="letra m-0">{{letra}}</p>
@@ -10,16 +10,28 @@
     
     
 </div>
-<img class="mt-5" src="{{vidasJugador}}" alt="">
+<img class="mt-5" src="{{juego.vidasJugador()}}" alt="">
 <div class="mensajeEstado mt-5">
-    <p class="{{colorEstado}}">{{estadoJuegoMensaje}}</p>
+    <p class="{{juego.colorEstado()}}">{{juego.estadoJuegoMensaje()}}</p>
 </div>
 <div>
 
-    @for (letra of abecedario; track $index) {
+    @for (letra of juego.abecedario; track $index) {
     
-        <button [disabled]="juegoTerminado ||letrasPresionadas().includes(letra)" class="letraAbecedario mt-5 ms-3 btn btn-primary" (click)="seleccionarLetra(letra)">{{letra}}</button>
+        <button [disabled]="juego.juegoTerminado() ||juego.letrasPresionadas().includes(letra)" class="letraAbecedario mt-5 ms-3 btn btn-primary" (click)="juego.seleccionarLetra(letra)">{{letra}}</button>
     }
 </div>
-<button [hidden]="!juegoTerminado" class="botonesJuegoTerminado btn mt-5 me-5" (click)="reiniciarJuego()">Volver a jugar</button>
-<button [hidden]="!juegoTerminado" class="botonesJuegoTerminado btn mt-5 ms-5" routerLink="/bienvenida">Ir al menu</button>
+<button [hidden]="!juego.juegoTerminado()" class="botonesJuegoTerminado btn mt-5 me-5" (click)="juego.reiniciarJuego()">Volver a jugar</button>
+<button [hidden]="!juego.juegoTerminado()" class="botonesJuegoTerminado btn mt-5 ms-5" routerLink="/bienvenida">Ir al menu</button>
+
+@if (sesion() && mostrarChat()) {
+    <div class="chat-fijo">
+        <app-chat-mensajes (cerrarChat)="mostrarChat.set(false)"
+        
+        ></app-chat-mensajes>
+    </div>
+}
+@if (sesion() && !mostrarChat()) {
+
+    <button class="botonAbrirChat" (click)="mostrarChat.set(true)">💬</button>
+}
