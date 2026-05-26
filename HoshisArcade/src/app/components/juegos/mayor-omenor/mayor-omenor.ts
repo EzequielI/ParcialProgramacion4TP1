@@ -12,7 +12,8 @@ import { ChatMensajes } from '../../vistas/chat-mensajes/chat-mensajes';
 })
 export class MayorOMenor {
 
-  readonly juego = inject(MayorOmenor)
+  readonly juego = inject(MayorOmenor);
+
   private readonly auth = inject(Auth);
   mostrarChat = signal(true);
   readonly sesion = this.auth.sesion_iniciada;

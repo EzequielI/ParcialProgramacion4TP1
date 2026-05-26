@@ -16,6 +16,7 @@ export class Chat {
   constructor(){
   }
 
+  // Cargar mensajes del chat
   async cargarMensajes(){
     const {data} = await this.supabase.clienteSupabase
     .from('chatMensajes')
@@ -32,6 +33,7 @@ export class Chat {
       this._mensajes.set(mensajesFormateados as Mensaje[])}
   }
 
+  // Se encargara de escuchar cada actualizacion del chat
   escucharMensajes(){
     if (this.yaEjecutado() == false) {
       this.supabase.clienteSupabase.channel('sala-de-chat')
@@ -43,6 +45,7 @@ export class Chat {
     }
   }
 
+  // Enviar mensaje al chat
   async enviarMensaje(contenido : string, nombre: string){
     const {data: usuarios} = await this.supabase.clienteSupabase
     .from('usuarios')

@@ -54,6 +54,10 @@
     padding-top: 10px;
     position: sticky;
     bottom: 0;
+    text-align: center;
+    padding-bottom: 0.5rem;
+
+
 }
 
 .botonCerrar{

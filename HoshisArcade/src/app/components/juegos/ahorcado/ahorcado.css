@@ -3,6 +3,11 @@
     font-family: var(--fuenteSixtyFour);
     font-size: 3rem;
 }
+.puntuacion{
+    color: yellow;
+    font-family: var(--fuenteJersey25);
+    font-size: 3rem;
+}
 .palabra{
     color: var(--violeta_oscuro);
     font-family: var(--fuenteJersey25);

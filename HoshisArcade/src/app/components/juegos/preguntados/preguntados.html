@@ -1,1 +1,49 @@
-<h1 class="titulo_pagina">Estas en Preguntados</h1>
+<app-mensajes
+    [mensajeError]="preguntados.mensajeError()">
+</app-mensajes>
+
+<h1 class="titulo_pagina mt-5">Preguntados</h1>
+@if (!preguntados.juegoTerminado() && preguntados.preguntas().length > 0) {
+
+    <div class="text-center">
+
+        <h2 class="contenedor p-4 m-2 mt-5 rounded-5 d-inline-block">
+        {{ preguntados.preguntas()[preguntados.indiceActual()].pregunta }}
+        </h2>
+
+    </div>
+
+
+    <div class= "opciones">   
+
+        @for (
+            respuesta of preguntados.preguntas()[preguntados.indiceActual()].respuestas;
+            track $index) {
+    
+            <button [disabled]="preguntados.desactivarBoton()" class="{{preguntados.opcionCorrecta()}} d-inline-block" (click)="responder(respuesta)">{{ respuesta }}</button>
+        }
+    </div>
+}
+@else if(preguntados.juegoTerminado()) {
+
+    <h2 class="tituloFinal">Juego terminado</h2>
+
+    <p class="resultados">Puntaje: {{ preguntados.puntuacionServicio.puntuacion() }}</p>
+    <p class="resultadosAciertos">Aciertos: {{preguntados.aciertos()}}</p>
+
+    <button class="btn botonesJuegoTerminado mt-5" (click)="preguntados.traerPreguntas()">Volver a jugar</button>
+    <button class="btn botonesJuegoTerminado mt-5 ms-5" routerLink="/bienvenida">Ir al menu</button>
+}
+
+
+@if (sesion() && mostrarChat()) {
+    <div class="chat-fijo">
+        <app-chat-mensajes (cerrarChat)="mostrarChat.set(false)"
+        
+        ></app-chat-mensajes>
+    </div>
+}
+@if (sesion() && !mostrarChat()) {
+
+    <button class="botonAbrirChat" (click)="mostrarChat.set(true)">💬</button>
+}

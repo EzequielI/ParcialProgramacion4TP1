@@ -1,5 +1,100 @@
+.wordle{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
 .titulo_pagina{
     color:var(--violeta_oscuro);
     font-family: var(--fuenteSixtyFour);
-    font-size: 3rem;
+    font-size: 4rem;
+}
+.puntuacion{
+    color: yellow;
+    font-family: var(--fuenteJersey25);
+    font-size: 2.5rem;
+}
+
+.tablero {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.fila {
+    display: flex;
+    gap: 10px;
+    
+}
+
+.celda {
+    width: 50px;
+    height: 50px;
+    border: 2px solid #ccc;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    text-transform: uppercase;
+    font-family: var(--fuenteJersey25);
+    font-size: 2rem;
+}
+
+.verde {
+    background: green;
+}
+
+.amarillo {
+    background: gold;
+}
+
+.rojo {
+    background: #d9534f;
+}
+
+.teclado{
+    font-family: var(--fuenteJersey25);
+    font-size: 2rem;
+}
+.mensaje{
+    color:red;
+    font-size: 2rem;
+    font-family: var(--fuenteJersey25);
+}
+
+.mensajeGanaste{
+    color:green;
+    font-size: 2rem;
+    font-family: var(--fuenteJersey25);
+}
+
+.botonesJuegoTerminado{
+    background-color: var(--celeste_clarito);
+    color: white;
+    font-size: 2rem;
+    font-family: var(--fuenteScienceGothic);
+}
+
+.chat-fijo{
+
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 320px;
+    z-index: 1000;
+}
+
+.botonAbrirChat{
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: none;
+    font-size: 30px;
+    background-color: #0d6efd;
+    color: white;
+    z-index: 1000;
 }

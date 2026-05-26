@@ -22,5 +22,4 @@ export class Ahorcado implements OnInit {
   async ngOnInit() {
     await this.juego.reiniciarJuego();
   }
-  
 }

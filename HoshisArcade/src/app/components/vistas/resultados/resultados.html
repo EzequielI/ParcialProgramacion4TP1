@@ -1,0 +1,103 @@
+<div class="contenedor-tablas d-flex mt-5">
+
+    <!-- Wordle -->
+    <div class="tabla">
+        <p class="titulo">Puntaje <br> Wordle</p>
+
+        <div class="scroll">
+        <table>
+            <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Puntaje</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            @for (jugador of resultados.puntajesWordle(); track $index) {
+                <tr>
+                <td>{{ jugador.nombre }}</td>
+                <td>{{ jugador.puntaje }}</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+        </div>
+    </div>
+
+    <!-- Ahorcado -->
+    <div class="tabla">
+        <p class="titulo">Puntaje Ahorcado</p>
+
+        <div class="scroll">
+        <table>
+            <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Puntaje</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            @for (jugador of resultados.puntajesAhorcado(); track $index) {
+                <tr>
+                <td>{{ jugador.nombre }}</td>
+                <td>{{ jugador.puntaje }}</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+        </div>
+    </div>
+
+    <!-- Preguntados -->
+    <div class="tabla">
+        <p class="titulo">Puntaje Preguntados</p>
+
+        <div class="scroll">
+        <table>
+            <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Puntaje</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            @for (jugador of resultados.puntajesPreguntados(); track $index) {
+                <tr>
+                <td>{{ jugador.nombre }}</td>
+                <td>{{ jugador.puntaje }}</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+        </div>
+    </div>
+
+    <!-- Mayor o menor -->
+    <div class="tabla">
+        <p class="titulo">Puntaje Mayor o Menor</p>
+
+        <div class="scroll">
+        <table>
+            <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Puntaje</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            @for (jugador of resultados.puntajesMayorOMenor(); track $index) {
+                <tr>
+                <td>{{ jugador.nombre }}</td>
+                <td>{{ jugador.puntaje }}</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+        </div>
+    </div>
+
+</div>
