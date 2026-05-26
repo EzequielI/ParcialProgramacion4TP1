@@ -1,3 +1,7 @@
 .text-danger{
     font-size: 1.1rem;
 }
+
+.textoError{
+    color: red;
+}

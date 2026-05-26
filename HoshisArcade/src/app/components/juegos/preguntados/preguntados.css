@@ -3,3 +3,104 @@
     font-family: var(--fuenteSixtyFour);
     font-size: 3rem;
 }
+.contenedor{
+    background-color: #2475AC ;
+    font-family: var(--fuenteJersey25);
+    font-size: 3rem;
+}
+
+.opciones {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.botonOpcion {
+    background-color: #042142;
+    color:white;
+    font-family: var(--fuenteJersey25);
+    font-size: 2.5rem;
+    padding: 1rem;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.botonOpcionCorrecta{
+    background-color: green;
+    color:white;
+    font-family: var(--fuenteJersey25);
+    font-size: 2.5rem;
+    padding: 1rem;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.botonOpcionIncorrecta{
+    background-color: red;
+    color:white;
+    font-family: var(--fuenteJersey25);
+    font-size: 2.5rem;
+    padding: 1rem;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.boton-opcion:hover {
+
+    transform: scale(1.03);
+}
+
+.tituloFinal{
+    font-family: var(--fuenteJersey25);
+    font-size: 3rem;
+    color: yellow;
+}
+
+.resultados{
+    font-size: 2.5rem;
+    font-family: var(--fuenteJersey25);
+    color: yellow;
+}
+
+.resultadosAciertos{
+    font-size: 2.5rem;
+    font-family: var(--fuenteJersey25);
+    color: green;
+}
+
+.botonesJuegoTerminado{
+    background-color: var(--celeste_clarito);
+    color: white;
+    font-size: 2rem;
+    font-family: var(--fuenteScienceGothic);
+}
+
+.chat-fijo{
+
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 320px;
+    z-index: 1000;
+}
+
+.botonAbrirChat{
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: none;
+    font-size: 30px;
+    background-color: #0d6efd;
+    color: white;
+    z-index: 1000;
+}

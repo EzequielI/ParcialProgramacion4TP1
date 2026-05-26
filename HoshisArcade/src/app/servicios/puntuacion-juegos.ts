@@ -13,7 +13,7 @@ export class PuntuacionJuegos {
   private readonly _tiempoJugado = signal(0)
   readonly tiempoJugado = this._tiempoJugado.asReadonly()
 
-  private intervalo : any;
+  private intervalo : any = null;
   
   // Traera el correo del usuario actual
   async traerCorreoUsuario(){
@@ -35,11 +35,13 @@ export class PuntuacionJuegos {
 
   // Inicia el tiempo y empieza a restar puntos de la puntuacion
   iniciarTiempo(){
+
+    if(this.intervalo) return;
     this.intervalo = setInterval(() => {
 
         this._tiempoJugado.update(valor => valor + 1);
 
-      this._puntuacion.update(valor => {
+        this._puntuacion.update(valor => {
 
         const nuevoValor = valor - 10;
 
@@ -51,7 +53,11 @@ export class PuntuacionJuegos {
 
   // Para el contador
   detenerTiempo(){
+    if (this.intervalo) {
+
     clearInterval(this.intervalo);
+    this.intervalo = null;
+    }
   }
 
   // Cuando se acierte en algun juego esto sumara

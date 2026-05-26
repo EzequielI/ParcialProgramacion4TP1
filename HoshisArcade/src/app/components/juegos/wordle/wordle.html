@@ -1,1 +1,77 @@
-<h1 class="titulo_pagina">Estas en Wordle</h1>
+<div class="wordle">
+
+    <h1 class="titulo_pagina">WORDLE</h1>
+
+    <h2 class="puntuacion">
+        Puntuación:
+        {{ puntuacion.puntuacion() }}
+    </h2>
+
+    <div class="tablero">
+
+    @for (fila of wordle.tablero(); track $index; let i = $index) {
+        <div class="fila">
+
+        @for (celda of fila; track $index; let j = $index) {
+            <div
+            class="celda"
+            [class.verde]="wordle.colores()[i][j] === 'verde'"
+            [class.amarillo]="wordle.colores()[i][j] === 'amarillo'"
+            [class.rojo]="wordle.colores()[i][j] === 'rojo'">
+            
+            {{ celda }}
+            </div>
+        }
+
+        </div>
+    }
+
+    </div>
+
+    @if (wordle.mensaje() !== '') {
+
+        @if(wordle.mensaje() == "Ganaste!"){
+            <p class="mensajeGanaste mt-4">
+        
+                {{ wordle.mensaje() }}
+
+            </p>
+        }@else {
+            <p class="mensaje mt-4">
+        
+                {{ wordle.mensaje() }}
+
+            </p>
+        }
+    }
+
+    <div>
+
+    @for (letra of wordle.letras(); track $index) {
+        <button [disabled]="wordle.juegoTerminado()" class="teclado btn btn-primary ms-3 mt-4" (click)="wordle.agregarLetra(letra)">
+        {{ letra }}
+        </button>
+    }
+
+    <button [disabled]="wordle.juegoTerminado()" class="teclado btn btn-primary ms-3 mt-4" (click)="wordle.borrarLetra()">⌫</button>
+    <button [disabled]="wordle.juegoTerminado()" class="teclado btn btn-primary ms-3 mt-4" (click)="jugar()">ENTER</button>
+
+    </div>
+    
+</div>
+@if (wordle.juegoTerminado()) {
+    <button class="btn botonesJuegoTerminado mt-5" (click)="wordle.reiniciarJuego()">Volver a jugar</button>
+<button class="btn botonesJuegoTerminado mt-5 ms-5" routerLink="/bienvenida">Ir al menu</button>
+}
+
+@if (sesion() && mostrarChat()) {
+    <div class="chat-fijo">
+        <app-chat-mensajes (cerrarChat)="mostrarChat.set(false)"
+        
+        ></app-chat-mensajes>
+    </div>
+}
+@if (sesion() && !mostrarChat()) {
+
+    <button class="botonAbrirChat" (click)="mostrarChat.set(true)">💬</button>
+}

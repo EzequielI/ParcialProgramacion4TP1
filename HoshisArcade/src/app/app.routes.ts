@@ -35,13 +35,17 @@ export const routes: Routes = [
     },
     {
         path:"preguntados",
-        loadComponent: () => import('./components/juegos/preguntados/preguntados').then(m => m.Preguntados),
+        loadComponent: () => import('./components/juegos/preguntados/preguntados').then(m => m.PreguntadosComponent),
         canActivate:[usuarioLogueado]
     },
     {
         path:"wordle",
-        loadComponent: () => import('./components/juegos/wordle/wordle').then(m => m.Wordle),
+        loadComponent: () => import('./components/juegos/wordle/wordle').then(m => m.WordleComponent),
         canActivate:[usuarioLogueado]
+    },
+    {
+        path:"resultados",
+        loadComponent: () => import('./components/vistas/resultados/resultados').then(m => m.Resultados)
     },
     {
         path:"**",
