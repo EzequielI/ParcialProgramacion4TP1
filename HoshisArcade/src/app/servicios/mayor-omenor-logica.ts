@@ -131,9 +131,11 @@ export class MayorOmenor {
       }
     ])
   }
-  //Cambiar el sprite de las cartas cuando es necesario
+  //Cambiara el sprite de las cartas cuando es necesario
   cambiarSpriteCartas(){
-    this._cartaActualSprite.set(`SpriteCartas/Carta${this.cartaActual()}.JPG`)
+    this._cartaActualSprite.set(
+      `SpriteCartas/Carta${this._cartaActual()}.JPG`
+    );
   }
 
 }
