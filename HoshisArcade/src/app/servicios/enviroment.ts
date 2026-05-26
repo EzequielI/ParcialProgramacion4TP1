@@ -6,6 +6,6 @@ import { Injectable } from '@angular/core';
 
 
 export class enviroment{
-    supabaseUrl = "https://kdtywfxondakasjqgatb.supabase.co"
-    supabaseKey = "sb_publishable_ZZqiPnHCp3Q--fUVnmc6kA_Qe9ihjgj"
+    readonly supabaseUrl = "https://kdtywfxondakasjqgatb.supabase.co"
+    readonly supabaseKey = "sb_publishable_ZZqiPnHCp3Q--fUVnmc6kA_Qe9ihjgj"
 }

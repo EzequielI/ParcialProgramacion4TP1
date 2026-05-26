@@ -3,7 +3,6 @@ import { RouterLink } from "@angular/router";
 import { MayorOmenor } from '../../../servicios/mayor-omenor-logica';
 import { Auth } from '../../../servicios/auth';
 import { ChatMensajes } from '../../vistas/chat-mensajes/chat-mensajes';
-import { PuntuacionJuegos } from '../../../servicios/puntuacion-juegos';
 
 @Component({
   selector: 'app-mayor-omenor',
@@ -14,7 +13,6 @@ import { PuntuacionJuegos } from '../../../servicios/puntuacion-juegos';
 export class MayorOMenor {
 
   readonly juego = inject(MayorOmenor);
-  private readonly puntuacion = inject(PuntuacionJuegos);
 
   private readonly auth = inject(Auth);
   mostrarChat = signal(true);

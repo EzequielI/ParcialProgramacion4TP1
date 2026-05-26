@@ -3,7 +3,6 @@ import { AhorcadoLogica } from '../../../servicios/ahorcado-logica';
 import { RouterLink } from "@angular/router";
 import { ChatMensajes } from '../../vistas/chat-mensajes/chat-mensajes';
 import { Auth } from '../../../servicios/auth';
-import { PuntuacionJuegos } from '../../../servicios/puntuacion-juegos';
 
 @Component({
   selector: 'app-ahorcado',
@@ -14,7 +13,6 @@ import { PuntuacionJuegos } from '../../../servicios/puntuacion-juegos';
 export class Ahorcado implements OnInit {
 
   private readonly auth  = inject(Auth)
-  private readonly puntuacion = inject(PuntuacionJuegos)
 
   readonly juego = inject(AhorcadoLogica)
   mostrarChat = signal(true)

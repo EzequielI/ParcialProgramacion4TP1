@@ -19,7 +19,7 @@ export class Preguntados {
   readonly preguntas = this._preguntas.asReadonly();
 
   private readonly _aciertos = signal(0);
-  readonly aciertos = this._aciertos.asReadonly();
+  readonly aciertos = this._aciertos.asReadonly();  
 
   private readonly _indiceActual = signal(0);
   readonly indiceActual = this._indiceActual.asReadonly();
@@ -54,6 +54,12 @@ export class Preguntados {
   //Trae las preguntas de una API, las mezcla y 
   // codifica para arreglar errores de lenguaje
   async traerPreguntas() {
+
+    this._desactivarBoton.set(false);
+    this.puntuacionServicio.detenerTiempo()
+    this.puntuacionServicio.reiniciarPuntuacion()
+
+    this._mensajeError.set("");
 
     try {
 
@@ -120,9 +126,9 @@ export class Preguntados {
         'Error al traer preguntas',
         error
       );
-
+      
       this._mensajeError.set('Hubo un error al cargar las preguntas. Intenta nuevamente.')
-
+      this._desactivarBoton.set(true);
     }
   }
 
@@ -153,7 +159,6 @@ export class Preguntados {
       this._indiceActual.update(valor => valor + 1);
     }
     else {
-      console.log("Terminar juego")
       this._juegoTerminado.set(true);
     }
     this._opcionCorrecta.set("botonOpcion");

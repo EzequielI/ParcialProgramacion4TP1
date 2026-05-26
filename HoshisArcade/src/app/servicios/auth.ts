@@ -57,7 +57,7 @@ export class Auth  {
   async obtenerUsuarioDatos(){
     return await this.clienteSupabase.from('usuarios').select("*")
   }
-  //Traeremos los datos del local storage, los compararemos 
+  //Traeremos los datos del getUser, los compararemos 
   // para ver si hay algun usuario con ese correo registrado cuando
   // se inicie sesion y si existe mostrara el nombre
   async mostrarUsuario(){

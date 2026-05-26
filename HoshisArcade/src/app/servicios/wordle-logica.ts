@@ -27,10 +27,11 @@ export class WorldeLogica {
     Array.from({ length: 5 }, () => Array(5).fill(''))
   );
 
-  filaActual = 0;
-  columnaActual = 0;
 
-  palabraSecreta = '';
+  private readonly _filaActual = signal(0);
+  private readonly _columnaActual = signal(0);
+
+  private readonly _palabraSecreta = signal("");
 
 
   constructor() {
@@ -42,7 +43,7 @@ export class WorldeLogica {
 
     this.puntuacionServicio.iniciarTiempo();
 
-    this.cargarPalabra();
+
   }
 
   // Cargar una palabra aleatoria
@@ -54,27 +55,27 @@ export class WorldeLogica {
     const lista = data ?? [];
     const random = lista[Math.floor(Math.random() * lista.length)];
 
-    this.palabraSecreta = random.palabra.toLowerCase();
+    this._palabraSecreta.set(random.palabra.toLowerCase());
   }
 
   // Agregar una letra cuando el usuario elija
   agregarLetra(letra: string) {
-    if (this.columnaActual < 5 && this.filaActual < 5) {
+    if (this._columnaActual() < 5 && this._filaActual() < 5) {
       this.tablero.update(tablero => {
-        tablero[this.filaActual][this.columnaActual] = letra;
+        tablero[this._filaActual()][this._columnaActual()] = letra;
         return [...tablero];
       });
-      this.columnaActual++;
+      this._columnaActual.update(v => v + 1);
     }
   }
 
   // Borrar una letra cuando el usuario elija
   borrarLetra() {
-    if (this.columnaActual > 0) {
-      this.columnaActual--;
+    if (this._columnaActual() > 0) {
+      this._columnaActual.update(v => v - 1)
 
       this.tablero.update(tablero => {
-        tablero[this.filaActual][this.columnaActual] = '';
+        tablero[this._filaActual()][this._columnaActual()] = '';
         return [...tablero];
       });
     }
@@ -94,7 +95,7 @@ export class WorldeLogica {
   // Confirmara que la palabra escrita sea la correcta o marcar las letras segun corresponda
   async confirmarPalabra() {
 
-    const palabra = this.tablero()[this.filaActual].join('').toLowerCase();
+    const palabra = this.tablero()[this._filaActual()].join('').toLowerCase();
 
     if (palabra.length < 5){
       this._mensaje.set('Completa las 5 letras');
@@ -110,7 +111,7 @@ export class WorldeLogica {
     }
 
     const resultado = Array(5).fill('rojo');
-    const secreta = this.palabraSecreta.split('');
+    const secreta = this._palabraSecreta().split('');
 
     // Letra acertada
     for (let i = 0; i < 5; i++) {
@@ -133,12 +134,12 @@ export class WorldeLogica {
     }
 
     this.colores.update(colores => {
-      colores[this.filaActual] = resultado;
+      colores[this._filaActual()] = resultado;
       return [...colores];
     });
 
     // El usuario gana
-    if (palabra === this.palabraSecreta) {
+    if (palabra === this._palabraSecreta()) {
 
       this.puntuacionServicio.sumarAcierto();
       this.puntuacionServicio.detenerTiempo();
@@ -148,11 +149,11 @@ export class WorldeLogica {
       return;
     }
 
-    this.filaActual++;
-    this.columnaActual = 0;
+    this._filaActual.update(v => v + 1);
+    this._columnaActual.set(0);
 
     // El usuario pierde
-    if (this.filaActual === 5) {
+    if (this._filaActual() === 5) {
       this.puntuacionServicio.restarError();
       this.puntuacionServicio.detenerTiempo();
 
@@ -183,7 +184,7 @@ export class WorldeLogica {
 
           puntaje: this.puntuacionServicio.puntuacion(),
 
-          cantidadIntentos:this.filaActual,
+          cantidadIntentos:this._filaActual(),
         }
       ]);
   }
@@ -202,8 +203,8 @@ export class WorldeLogica {
     );
 
     // Reiniciar posiciones
-    this.filaActual = 0;
-    this.columnaActual = 0;
+    this._filaActual.set(0);
+    this._columnaActual.set(0);
 
     // Reiniciar estado
     this._juegoTerminado.set(false);

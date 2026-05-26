@@ -23,7 +23,6 @@ export class Registro implements OnInit{
   ngOnInit(): void {
     this.formularioRegistro = this.fb.group({
       correo:["", Validators.email],
-      //Arreglar los patterns que deja poner solo espacio
       nombre:["", [Validators.pattern('^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+( [a-zA-ZáéíóúÁÉÍÓÚñÑ]+)*$'), ]],
       apellido:["", Validators.pattern('^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+( [a-zA-ZáéíóúÁÉÍÓÚñÑ]+)*$')],
       edad:["", [Validators.pattern('^[0-9]+$'),Validators.min(10),Validators.max(99)]],

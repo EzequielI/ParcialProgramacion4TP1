@@ -13,7 +13,7 @@ export class ResultadosLogica {
   readonly puntajesPreguntados = signal<any[]>([]);
   readonly puntajesWordle = signal<any[]>([]);
 
-  // 🔥 método reutilizable
+  //Metodo reutilizable
   private async traerPuntajes(
     tabla: string,
     signalDestino: any
@@ -23,7 +23,8 @@ export class ResultadosLogica {
       await this.supabase.clienteSupabase
         .from(tabla)
         .select('*')
-        .order('puntaje', { ascending: false });
+        .order('puntaje', { ascending: false })
+        .limit(5);
 
     if (error) {
       console.error(error);
@@ -69,6 +70,7 @@ export class ResultadosLogica {
     );
   }
 
+  // Traer todos los resultados en forma de tabla
   async traerTodosLosResultados() {
 
     await Promise.all([

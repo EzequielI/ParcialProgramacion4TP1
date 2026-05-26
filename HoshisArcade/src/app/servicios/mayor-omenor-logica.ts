@@ -45,9 +45,9 @@ export class MayorOmenor {
   readonly mensaje = this._mensaje.asReadonly();
 
 
-
-    inicializarMazo() {
-      const mazo: number[] = [];
+  //Iniciar mazo de cartas
+  inicializarMazo() {
+    const mazo: number[] = [];
 
     for(let i = 0; i < 1000; i++){
       let numero = Math.floor(Math.random() * 12) + 1;
@@ -61,6 +61,7 @@ export class MayorOmenor {
     this._cartas.set(mazo)
   }
 
+  //Inicializar variables
   iniciarJuego() {
     this.puntuacionServicio.detenerTiempo()
     this.inicializarMazo();
@@ -78,6 +79,7 @@ export class MayorOmenor {
     this.cambiarSpriteCartas()
   }
   
+  //Eleccion hecha a partir del tocar el boton
   jugar(eleccion: 'mayor' | 'menor') {
     this._intentos.update(v => v + 1);
     
@@ -110,6 +112,7 @@ export class MayorOmenor {
     }
   }
 
+  //Finalizara el juego
   async finalizarJuego() {
 
     this._juegoTerminado.set(true);
@@ -128,45 +131,9 @@ export class MayorOmenor {
       }
     ])
   }
+  //Cambiar el sprite de las cartas cuando es necesario
   cambiarSpriteCartas(){
-    switch(this.cartaActual()){
-      case 12:
-        this._cartaActualSprite.set("SpriteCartas/Carta12.jpg");
-        break;
-      case 11:
-        this._cartaActualSprite.set("SpriteCartas/Carta11.JPG");
-        break;
-      case 10:
-        this._cartaActualSprite.set("SpriteCartas/Carta10.JPG");
-        break;
-      case 9:
-        this._cartaActualSprite.set("SpriteCartas/Carta9.JPG");
-        break;
-      case 8:
-        this._cartaActualSprite.set("SpriteCartas/Carta8.JPG");
-        break;
-      case 7:
-        this._cartaActualSprite.set("SpriteCartas/Carta7.JPG");
-        break;
-      case 6:
-        this._cartaActualSprite.set("SpriteCartas/Carta6.JPG");
-        break;
-      case 5:
-        this._cartaActualSprite.set("SpriteCartas/Carta5.JPG");
-        break;
-      case 4:
-        this._cartaActualSprite.set("SpriteCartas/Carta4.JPG");
-        break;
-      case 3:
-        this._cartaActualSprite.set("SpriteCartas/Carta3.JPG");
-        break;
-      case 2:
-        this._cartaActualSprite.set("SpriteCartas/Carta2.JPG");
-        break;
-      default:
-        this._cartaActualSprite.set("SpriteCartas/Carta1.JPG");
-
-    }
+    this._cartaActualSprite.set(`SpriteCartas/Carta${this.cartaActual()}.JPG`)
   }
 
 }
